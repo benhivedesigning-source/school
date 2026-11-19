@@ -1,0 +1,6 @@
+{
+  "name": "School Finance ERP & Parent Portal",
+  "description": "Comprehensive clickable School Finance ERP and Parent Portal prototype with accounting, student fees, banking, payroll, and real-time dashboard visualization.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

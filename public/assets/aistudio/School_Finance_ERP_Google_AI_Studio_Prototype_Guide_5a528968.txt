@@ -1,0 +1,365 @@
+SCHOOL FINANCE ERP
+Google AI Studio
+Prototype Creation Guide
+Screen-by-screen field keys • UI controls • role flows • copy-ready prompts
+Prepared for Product Owner, UI/UX and Prototype Development
+Version 1.0  |  16 November 2026
+Purpose
+Use this guide to create a clickable School Finance ERP web prototype in Google AI Studio Build mode. It translates the existing database key catalogue into screens, visible labels, input types, sample data and interactions. It is a prototype handoff, not a production database or accounting certification.
+
+
+Document control
+ItemValueDocument titleSchool Finance ERP - Google AI Studio Prototype Creation GuideSource specificationSchool Finance ERP - Database Key Structure & Data Dictionary, Version 1.0PurposeGuide Google AI Studio to generate a screen-based interactive web prototype using agreed ERP keys.Intended usersProduct Owner, Business Analyst, UI/UX Designer, Prototype Developer, QA ReviewerPrototype platformGoogle AI Studio - Build mode - Web applicationData policySynthetic demo data only; no real student, parent, employee, banking or tax data.StatusPrototype design reference; validate with the school before production development.
+Contents
+* 1. How to use this guide in Google AI Studio
+* 2. Prototype boundaries and design rules
+* 3. Roles and access for the prototype
+* 4. Application navigation and common shell
+* 5. Shared key conventions
+* 6. Screen specifications and field keys
+* 7. Main end-to-end prototype workflows
+* 8. Copy-ready Google AI Studio prompts
+* 9. Prototype test checklist
+* 10. What must change before production
+* 11. References
+Important source-to-prototype note
+The database dictionary provides proposed backend keys such as company_id, ledger_id, voucher_id and bank_account_id. These are not all fields a human should type. In the prototype, display a friendly label such as "Company name"; keep system keys hidden and generate mock IDs automatically. Show the database key in this guide so the development team can connect each screen to the intended data model.
+Do not use real data
+Use fictional school names, fake bank account numbers, test payment references and sample employees. Do not paste real API secrets, bank credentials, PAN, Aadhaar, student personal data or production exports into an AI prompt.
+
+
+1. How to use this guide in Google AI Studio
+Google AI Studio Build mode can create web applications from natural-language prompts. Google documents the web app path as a client-side frontend (React by default) plus a server-side Node.js runtime. The live preview can be refined through follow-up prompts; projects can also be reviewed in code and exported or synced for further development. For this task, use it to create an interactive prototype with mock data, not a live financial system. [1]
+1.1 Start the prototype
+1. Open Google AI Studio and choose Build mode.
+2. Select the Web app option (not Android) for the school finance admin portal and Parent Portal.
+3. Paste the Global Prototype Prompt from Section 8.1.
+4. Allow the first version to generate. Review the live preview and check the navigation before asking for detailed modules.
+5. Paste one module prompt at a time from Section 8.2 onward. Ask the builder to extend the existing project rather than replace it.
+6. After each module, click through every button and form. Ask AI Studio to fix broken navigation, validation and state updates.
+7. When the prototype is stable, inspect the generated code and export/sync it for engineering review. Do not deploy it as a production finance application without the controls in Section 10.
+1.2 A good prompt sequence
+Prompt stageWhat to ask AI Studio to buildExpected resultA. Global setupProject shell, design system, route map, demo roles and mock dataConsistent application frameB. FoundationOrganisation, company, branch, users and rolesSetup screensC. AccountingGroups, ledgers, Cost Centres, voucher list and voucher formAccounting master screensD. Student financeStudents, guardians, fee plans, invoices, receipts and refundsAdmin fee workflowsE. Parent PortalGuardian dashboard, child switcher, fee detail, checkout and receiptsSeparate parent experienceF. BankingBank account, Bank Book, gateway setup, settlement and reconciliationBanking workflowsG. Other modulesVendor bills, payroll, taxes, budgets, inventory and reportsRemaining finance modulesH. QARole checks, sample scenarios, responsive checks and bug fixesClickable prototype review
+1.3 Prototype expectation
+Every screen should support the happy path with mock data: open a page, enter or select values, save, see a confirmation, and see the resulting record in a list or detail view. Use local component state or seeded mock data. A refresh may reset the demo unless the prototype deliberately uses safe local persistence.
+
+
+2. Prototype boundaries and design rules
+2.1 What the prototype must demonstrate
+* A school organisation with one or more legal companies and branches.
+* Accounting masters: account groups, ledgers, Cost Centres and voucher types.
+* Student fees: fee plan ? invoice ? parent payment ? receipt ? accounting posting.
+* Banking: bank account master ? linked bank ledger ? Bank Book ? bank statement import ? reconciliation.
+* Procurement: request ? approval ? purchase order/bill ? payment ? reconciliation.
+* Payroll: employee ? salary setup ? payroll preview ? approval ? salary payment.
+* Parent Portal: parent login ? authorised child selection ? outstanding fees ? payment ? receipt history.
+* Reports: operational summaries and financial reports with drill-down examples.
+2.2 What must remain mock-only
+AreaPrototype treatmentBank connectivityUse fictional bank account details. Do not connect to real bank APIs.Payment gatewaySimulate success, pending, failed and refunded states. Do not collect live money.AuthenticationUse demo role selector or mock sign-in. Do not use real passwords.Accounting postingShow sample balanced journal lines. Do not claim the prototype is an audited ledger.GST / TDS / PF / ESIUse sample values labelled illustrative. No live statutory calculation engine.Data storageUse local mock data. Do not upload real school data or personal records.NotificationsShow simulated in-app/email/SMS notifications, not real messages.
+2.3 Visual design direction
+* Professional school finance SaaS: clean, modern, trustworthy and not overly decorative.
+* Use a left sidebar for modules, a top bar for company/branch/financial-year context, and a main content area.
+* Use a neutral light background, navy text, restrained teal/blue accents, readable tables and clear status chips.
+* Use consistent forms with labels above inputs, helpful field hints, required markers and inline validation.
+* Use summary cards only for important totals: collections, outstanding fees, expenses, bank balance and pending approvals.
+* Use responsive layouts: desktop-first for finance staff, mobile-friendly for Parent Portal.
+* Use tables with search, filters, sorting, pagination and row-level actions such as View, Edit, Approve or Export.
+
+
+3. Roles and access for the prototype
+Use the 11 core role templates from the product requirements. For prototyping, provide a Demo Role switcher so the reviewer can view different dashboards without real authentication.
+RoleWhat this person does in the prototypeKey accessPlatform Super AdminCreates/maintains platform tenants and support settingsPlatform-level setup only; no routine school transactionsSchool AdministratorSets up the school, companies, branches and usersOrganisation settings and user assignmentsFinance Head / ControllerReviews finance operations and approves sensitive transactionsApprovals, financial dashboards, bank access and period closeAccountantMaintains ledgers, vouchers, bills, bank records and reportsAccounting, banking, reconciliation and reportsBranch Finance / Cashier OfficerRecords branch-level receipts and authorised cash/bank entriesAssigned branch transactions and receipt screensStudent Fee AdministratorSets fee plans, invoices, concessions and student duesStudent fee setup and fee recordsPayroll & HR OfficerMaintains employee payroll data and prepares payrollEmployee and payroll screens; restricted bank detailsProcurement & Budget CoordinatorCreates purchase requests, tracks budgets and vendor billsProcurement and budget screensSchool LeadershipReviews school-level financial summariesRead-only dashboards and selected reportsAuditorReviews transactions, approvals and audit historyRead-only audit and report accessParent / GuardianViews only linked children and pays their feesParent Portal only
+3.1 Role behaviour to demonstrate
+* Accountant creates a vendor payment; Finance Head approves it.
+* Branch Cashier records a fee receipt only for their assigned branch.
+* Student Fee Administrator prepares a fee plan; Finance Head or School Administrator approves publication.
+* Payroll Officer prepares salary; authorised approver reviews it before payment.
+* Auditor can view posted vouchers and audit logs but cannot edit them.
+* Parent can view multiple linked children but cannot open another family's record.
+Prototype simplification
+Use role-based page visibility and disabled actions for demonstration. In production, enforce permissions on the backend for every API and record; hiding a button is not security.
+
+
+4. Application navigation and common shell
+4.1 Admin portal menu
+Menu groupPagesDashboardOverview, pending approvals, collection and expense summariesOrganisationOrganisation, Companies, Branches, Financial Years, GST RegistrationsUsers & AccessUsers, Roles, Permissions, Branch AssignmentsAccounting SetupAccount Groups, Ledgers, Cost Centres, Voucher TypesStudent FinanceStudents, Guardians, Fee Heads, Fee Plans, Invoices, Receipts, RefundsBankingBank Accounts, Bank Book, Gateways, Settlements, Statements, ReconciliationProcurementVendors, Purchase Requests, Purchase Orders, Vendor Bills, PaymentsPayrollEmployees, Salary Components, Salary Structures, Payroll Runs, PayslipsTax & ComplianceTax Rules, GST Transactions, TDS Transactions, ChallansBudgets & FundsBudgets, Budget Lines, Donors, Donations, FundsInventory & AssetsStock Groups, Items, Warehouses, Fixed AssetsReportsDay Book, Ledger, Trial Balance, Income & Expenditure, Balance Sheet, OutstandingAdministrationApprovals, Audit Logs, Notifications, Settings
+4.2 Parent Portal menu
+PageWhat parent can doHomeView children, current dues, recent receipts and announcementsMy ChildrenSwitch between children linked to the signed-in guardianFee DetailsView fee heads, instalments, concessions, late fees and outstanding amountPay FeesSelect invoice/instalment and simulate payment methodPayment HistoryView successful, pending and failed attemptsReceiptsView and download demo receiptsProfileView guardian contact details and notification preferencesHelp / RequestsSubmit a fee clarification or refund request
+4.3 Common context bar
+Show the current organisation, company/legal entity, branch and financial year at the top of the admin portal. When the user changes branch or year, all lists and reports should reflect that scope. Parent Portal should not display internal company or accounting settings.
+
+
+5. Shared key conventions for prototype screens
+Database keyVisible label / usePrototype ruleorganisation_idOrganisationHidden generated ID; show organisation namecompany_idCompany / Legal EntitySelect from company list; hidden ID storedbranch_idBranch / CampusDropdown filtered by companyfinancial_year_idFinancial YearContext selector; required on financial recordsdepartment_idDepartmentDropdown; optional where not usedcreated_byCreated byAutomatically use current demo role/usercreated_atCreated onAutomatically generated date/timeupdated_by / updated_atLast updatedSystem-managed metadatais_activeStatusActive/Inactive togglestatusWorkflow statusStatus chip; controlled by workflow
+5.1 Key labels used in this guide
+MarkerMeaning in the UI specificationM - MandatoryMust be entered before the user can save.C - ConditionalRequired only when the user selects a particular option or workflow.R - RecommendedShow it where useful; do not block the save if blank.O - OptionalCan be left blank.SystemGenerated by the application; not manually entered.
+5.2 Control types
+ControlUseText inputNames, codes, identifiers and short referencesEmail / PhoneContact fields with format validationDate pickerInvoice, due, joining, transaction and period datesDropdown / Search selectCompany, branch, ledger, student, vendor, bank and categoryCurrency inputAmounts; use two decimal places in demo displayToggle / CheckboxActive, receipt enabled, payment enabled and feature settingsTextareaNarration, description, reason and notesFile uploadStatement, invoice attachment or evidence; use sample files onlyTable / RepeaterInvoice lines, voucher lines, salary components, allocationsRead-only displayGenerated IDs, calculated totals, balances and derived statuses
+
+
+5.3 Example prototype data objects
+Use these shortened JSON-shaped examples when AI Studio needs an unambiguous data structure. They use the same proposed ERP keys from the database dictionary. IDs are synthetic demo values.
+Company
+{
+  "company_id": "demo-company-001", "organisation_id": "demo-org-001",
+  "company_code": "GVET", "legal_name": "Green Valley Education Trust",
+  "display_name": "Green Valley School", "entity_type": "Trust",
+  "base_currency": "INR", "books_beginning_date": "2020-04-01",
+  "company_status": "Active"
+}
+Bank Account Master
+{
+  "bank_account_id": "demo-bank-001", "company_id": "demo-company-001",
+  "bank_name": "State Bank of India", "account_nickname": "Chennai Main",
+  "account_number_last4": "4521", "ifsc_code": "SBIN0000000",
+  "account_type": "Current", "currency_code": "INR",
+  "ledger_id": "demo-ledger-bank-001", "account_status": "Active"
+}
+Accounting Voucher
+{
+  "voucher_id": "demo-voucher-001", "company_id": "demo-company-001",
+  "voucher_type_id": "demo-vtype-receipt", "voucher_number": "RV-0001",
+  "voucher_date": "2026-11-16", "source_module": "FEES", "status": "Posted",
+  "lines": [
+    {"ledger_id":"demo-bank-ledger","debit_amount":25000,"credit_amount":0},
+    {"ledger_id":"demo-student-receivable","debit_amount":0,"credit_amount":25000}
+  ]
+}
+Bank Reconciliation
+{
+  "reconciliation_id": "demo-recon-001", "bank_account_id": "demo-bank-001",
+  "statement_id": "demo-statement-001", "period_from": "2026-11-01",
+  "period_to": "2026-11-30", "reconciliation_status": "InProgress",
+  "matches": [{"statement_line_id":"demo-line-001",
+    "voucher_line_id":"demo-vline-001", "match_type":"Exact",
+    "matched_amount":25000}]
+}
+Prototype key rule
+Users select company, ledger, student and bank account by name. The prototype stores the corresponding demo keys internally. Never ask a user to type a UUID.
+
+
+6. Screen specifications and field keys
+The following specifications tell AI Studio what to display. The database keys are included so the generated prototype uses consistent naming. System IDs should be generated by the prototype and should not appear as editable fields.
+6.1 Login and demo role selection
+Allow reviewers to enter the Admin Portal or Parent Portal using sample demo identities.
+Database keyPrototype labelUI controlRule / behaviourdemo_rolePreview roleDropdownM for demo: choose one of 11 rolesemailEmailEmail inputDemo-only value; no real authenticationpasswordPasswordPassword inputUse fixed demo interaction; never store real credentialsportal_typePortalSegmented controlAdmin Portal / Parent Portal
+Prototype interaction: Successful demo sign-in opens the role-specific dashboard.
+6.2 Organisation and company setup
+Create the school organisation and legal accounting company.
+Database keyPrototype labelUI controlRule / behaviourorganisation_nameOrganisation nameTextM; school group/trust nameorganisation_codeOrganisation codeTextM; unique demo codecompany_codeCompany codeTextM; unique within organisationlegal_nameRegistered legal nameTextMentity_typeEntity typeDropdownM; Trust / Society / Company / Otherprimary_emailPrimary emailEmailOphone_numberContact numberPhoneOaddress_line_1AddressTextMstateStateDropdownMcountryCountryDropdownMbase_currencyBase currencyDropdownM; INR defaultyear_nameFinancial yearTextMstart_dateFinancial year beginsDateMend_dateFinancial year endsDateMbooks_beginning_dateBooks beginning fromDateM
+Prototype interaction: Save creates an organisation and company record; route to branch setup.
+6.3 Branch and department setup
+Add campuses under the selected company.
+Database keyPrototype labelUI controlRule / behaviourbranch_codeBranch codeTextM; unique within companybranch_nameBranch nameTextMbranch_typeBranch typeDropdownM; Head Office / Campus / Regional Officecompany_idCompanyDropdownMaddress_idBranch addressAddress form/linkMgst_registration_idGST registrationDropdownCis_head_officeHead officeToggleMbranch_statusBranch statusDropdownMdepartment_codeDepartment codeTextMdepartment_nameDepartment nameTextMparent_department_idParent departmentDropdownO
+Prototype interaction: Branch list shows campus name, code, company and status. Department rows belong to a branch/company scope.
+6.4 Users, roles and access
+Create users and assign role and data scope.
+Database keyPrototype labelUI controlRule / behaviourfull_nameFull nameTextMemailEmailEmailM; unique under login policyphone_numberPhonePhoneOrole_idRoleDropdownMcompany_idCompany accessMulti-selectM for school userbranch_idBranch accessMulti-selectC; based on rolevalid_fromAccess startsDateM for assignmentvalid_toAccess endsDateOuser_statusUser statusDropdownM; Invited / Active / Locked / Disabledpermission_codePermission codeCheckbox groupsUse role_permission records; demo overrides only
+Prototype interaction: Save displays user with role and assigned company/branches. Parent user routes only to Parent Portal.
+6.5 Account group master
+Create the chart-of-accounts hierarchy.
+Database keyPrototype labelUI controlRule / behaviourgroup_codeGroup codeTextM; unique within companygroup_nameGroup nameTextMparent_group_idUnder groupSearch selectC; blank for top-level groupaccount_natureAccount natureDropdownM; Asset / Liability / Equity-Fund / Income / Expensestatement_classStatement classDropdownM; Balance Sheet / Income & Expenditure / P&Lis_system_groupSystem groupRead-only badgeSystemis_activeActiveToggleM
+Prototype interaction: Tree view shows parent/child groups. Prevent circular parent selection.
+6.6 Ledger / account master
+Create the actual posting account used in vouchers.
+Database keyPrototype labelUI controlRule / behaviourledger_codeLedger codeTextM; unique within companyledger_nameLedger nameTextMgroup_idParent groupSearch selectMledger_typeLedger typeDropdownM; Bank / Cash / Income / Expense / Receivable / Payable / Tax / Generalopening_balanceOpening balanceCurrencyC; if brought forwardopening_balance_sideBalance sideDropdownC; DEBIT / CREDITbill_wise_enabledTrack outstanding billsToggleMcost_centre_enabledAllow Cost Centre allocationToggleMreconciliation_enabledEnable reconciliationToggleMis_system_control_ledgerSystem control ledgerRead-only badgeSystemledger_statusLedger statusDropdownM; Active / Inactive
+Prototype interaction: Ledger detail shows its group, opening balance and related transactions.
+6.7 Cost Centre setup
+Create branch, department or project allocations.
+Database keyPrototype labelUI controlRule / behaviourcategory_nameCost Centre categoryTextMcost_centre_nameCost Centre nameTextMparent_cost_centre_idParent Cost CentreDropdownOcompany_idCompanyDropdownMbranch_idLinked branchDropdownCis_activeActiveToggleM
+Prototype interaction: Show hierarchy such as Chennai Campus > Administration / Transport / Academics.
+6.8 Voucher types and financial periods
+Set up accounting period and voucher numbering.
+Database keyPrototype labelUI controlRule / behaviourfinancial_year_idFinancial yearDropdownMyear_nameFinancial year nameTextMstart_dateFinancial year beginsDateMend_dateFinancial year endsDateMperiod_statusFinancial year statusDropdownM; Open / Soft Closed / Lockedaccounting_period_idAccounting periodRead-only/selectSystem/selectedperiod_namePeriod nameTextMperiod_startPeriod beginsDateMperiod_endPeriod endsDateMvoucher_type_codeVoucher codeTextMvoucher_type_nameVoucher nameTextMnumbering_methodNumbering methodDropdownM; Automatic / Manual
+Prototype interaction: Show open/locked period badge and sample voucher series.
+6.9 Voucher entry
+Provide a common debit/credit voucher form for accounting entries.
+Database keyPrototype labelUI controlRule / behaviourvoucher_type_idVoucher typeDropdownMvoucher_numberVoucher numberText/read-onlySystem or controlled seriesvoucher_dateVoucher dateDateM; within open periodbranch_idBranchDropdownC/M per company policyfinancial_year_idFinancial yearDropdownMaccounting_period_idAccounting periodDropdownM; must be opennarrationNarrationTextareaOledger_idLedgerSearch select in line gridM per linedebit_amountDebitCurrency in line gridOne side per linecredit_amountCreditCurrency in line gridOne side per lineparty_idPartySearch select in line gridC for subledger linescost_centre_idCost CentreDropdown in line gridC based on ledger settingssource_moduleSource moduleRead-only badgeSystem/manualsource_record_idSource recordRead-only referenceC/systemstatusVoucher statusStatusM; Draft / PendingApproval / Approved / Posted / Reversedtotal_debitTotal debitCalculatedSystemtotal_creditTotal creditCalculatedSystem
+Prototype interaction: Show running totals. Disable Post until debits equal credits, ledger is active and period is open. Draft can be saved.
+6.10 Student and guardian records
+Maintain students and guardian relationships for fee billing and portal access.
+Database keyPrototype labelUI controlRule / behaviouradmission_numberAdmission numberTextM; unique within school scopestudent_nameStudent nameTextMbranch_idCampusDropdownMacademic_year_idAcademic yearDropdownMclass_idClassDropdownMsection_idSectionDropdownCadmission_dateAdmission dateDateMstudent_statusStudent statusDropdownMguardian_idGuardianRead-onlySystemfull_nameGuardian nameTextMemailGuardian emailEmailM for portal accessphone_numberGuardian phonePhoneMportal_statusPortal statusDropdownM; Invited / Active / Locked / Disabledstudent_guardian_idStudent-guardian linkRead-onlySystemrelationship_typeRelationshipDropdownMcan_view_financeCan view financeToggleMcan_make_paymentCan make paymentToggleM
+Prototype interaction: Support many guardians per student and multiple students per guardian. Parent access uses approved relationship records.
+6.11 Fee heads and fee plan
+Configure fees for an academic year and target student group.
+Database keyPrototype labelUI controlRule / behaviourfee_head_codeFee head codeTextMfee_head_nameFee head nameTextM; e.g. Tuition / Transport / Labincome_ledger_idIncome ledgerSearch selectMfee_plan_idFee planRead-onlySystemplan_nameFee plan nameTextMacademic_year_idAcademic yearDropdownMbranch_idCampusDropdownMclass_idClassDropdownCfee_plan_line_idFee plan lineRead-onlySystemamountFee amountCurrencyM per fee linebilling_frequencyBilling frequencyDropdownM; Annual / Term / Monthly / One-timedue_dateDue dateDateC per lineplan_statusPlan statusStatusM; Draft / PendingApproval / Approved / Published / Archived
+Prototype interaction: Calculate fee total and show a preview. Finance Head approves before Publish.
+6.12 Fee invoice and receipt
+Generate student demand and record payment allocation.
+Database keyPrototype labelUI controlRule / behaviourfee_invoice_idFee invoiceRead-onlySysteminvoice_numberInvoice numberRead-onlySystem-generated unique numberstudent_idStudentSearch selectMfee_plan_idFee planDropdownCinvoice_dateInvoice dateDateMdue_dateDue dateDateMgross_amountGross amountCalculatedSystemconcession_amountConcessionCurrencyM; zero if nonelate_fee_amountLate feeCurrencyM; zero if nonenet_amountNet payableCalculatedSysteminvoice_statusInvoice statusStatusMfee_invoice_line_idInvoice line IDRead-onlySystemfee_head_idFee headDropdown in line gridM per lineline_amountLine amountCurrency in line gridM per lineline_descriptionLine descriptionText in line gridOfee_payment_idFee paymentRead-onlySystempayment_amountPayment amountCurrencyM on paymentpayment_modePayment modeDropdownM on paymentpayment_statusPayment statusStatusM on paymentpayment_datePayment date/timeDate/timeC after confirmationbank_account_idDirect bank accountDropdownC for direct bank receiptgateway_payment_idGateway paymentRead-onlyC for online paymentpayment_referencePayment referenceTextR for non-cash paymentaccounting_voucher_idAccounting voucherRead-only linkC after postingpayment_allocation_idPayment allocationRead-onlySystemallocated_amountAllocated amountCurrencyM per allocationrefund_idRefund recordRead-onlySystemrefund_amountRefund amountCurrencyM for refundrefund_reasonRefund reasonTextareaM for refundrefund_statusRefund statusStatusM for refund
+Prototype interaction: Invoice detail has line items, allocations, payment history, receipt and outstanding balance.
+6.13 Bank Account Master
+Register the school bank account and link it to the bank ledger.
+Database keyPrototype labelUI controlRule / behaviourbank_nameBank nameDropdown/textMaccount_nicknameAccount nicknameTextMaccount_holder_nameAccount holderTextMaccount_number_encryptedAccount numberMasked secure inputM in production; fake demo value onlyaccount_number_last4Account endingRead-onlySystem derivedifsc_codeIFSC codeTextC; required for domestic transferaccount_typeAccount typeDropdownM; Current / Savings / Othercurrency_codeCurrencyDropdownMbranch_idBranchDropdownCledger_idLinked bank ledgerSearch selectM; ledger type must be Bankopening_book_balanceOpening book balanceCurrencyCopening_balance_dateOpening dateDateCallow_receiptsAllow receiptsToggleMallow_paymentsAllow paymentsToggleMstatement_formatStatement formatDropdownO; CSV / XLSX / MT940 / supportedaccount_statusAccount statusDropdownM; Active / Inactive / Closed
+Prototype interaction: Show masked account number, linked ledger, use permissions and account balance. Do not show full number after save.
+6.14 Payment gateway configuration
+Configure a demo gateway and its accounting ledgers.
+Database keyPrototype labelUI controlRule / behaviourgateway_nameGateway providerDropdownMmerchant_account_idMerchant IDTextCapi_key_referenceAPI key referenceSecret referenceC; mock onlyapi_secret_referenceAPI secret referencePassword/secret referenceC; never expose value in UIwebhook_secret_referenceWebhook secret referencePassword/secret referenceC; mock onlyclearing_ledger_idGateway clearing ledgerSearch selectMcharges_ledger_idGateway charges ledgerSearch selectMsettlement_bank_account_idSettlement bank accountDropdownMsettlement_frequencySettlement frequencyDropdownOgateway_statusGateway statusDropdownM; Active / Inactive / TestMode
+Prototype interaction: Show Test Mode badge and fake connection status. Do not call a real gateway.
+6.15 Gateway payments and settlement
+Show payment attempts, provider events and settlement batches.
+Database keyPrototype labelUI controlRule / behaviourgateway_idGatewayDropdownMfee_payment_idRelated fee paymentRead-only linkMprovider_order_idProvider order IDRead-onlyRprovider_payment_idProvider payment IDRead-onlyC after attemptamountPayment amountCurrencyMcurrency_codeCurrencyRead-onlyMpayment_statusPayment statusStatus chipCreated / Pending / Success / Failed / Refundedverified_atVerified atRead-only date/timeC after verified successgateway_event_idInternal event IDRead-onlySystemprovider_event_idWebhook event IDRead-onlyM; unique in productionevent_typeProvider event typeRead-onlyMsignature_validWebhook signature validStatusM; demo true/falsepayload_referencePayload referenceRead-onlyR; secure reference onlyprocessed_atProcessed atRead-only date/timeOprocessing_statusEvent processing statusStatusMsettlement_batch_idSettlement batchRead-onlySystemprovider_settlement_idSettlement IDRead-onlyM per batchsettlement_dateSettlement dateDateM per batchgross_amountGross settlementCurrencyMfee_amountGateway chargesCurrencyMtax_on_fee_amountTax on gateway feeCurrencyCrefund_amountRefunds/adjustmentsCurrencyMnet_amountNet settlementCalculatedSystembank_account_idDestination bankDropdownMsettlement_statusSettlement statusStatusM; Expected / PartSettled / Settled / Disputedsettlement_line_idSettlement lineRead-onlySystemgross_line_amountGross line amountCurrencyM per settlement linefee_line_amountFee line amountCurrencyM per settlement linenet_line_amountNet line amountCurrencyM per settlement line
+Prototype interaction: Prototype can simulate successful, failed, pending and refund events. Settlement view shows gross, charges, adjustments and net.
+6.16 Bank statement import and reconciliation
+Import statement rows and compare them with ERP bank ledger entries.
+Database keyPrototype labelUI controlRule / behaviourstatement_idStatementRead-onlySystembank_account_idBank accountDropdownMstatement_from_dateStatement fromDateMstatement_to_dateStatement toDateMfile_nameStatement fileFile uploadM in workflow; use sample CSVuploaded_byUploaded byRead-onlySystemfile_hashFile checksumRead-onlyM; duplicate upload detectionopening_balanceStatement opening balanceCurrencyMclosing_balanceStatement closing balanceCurrencyMupload_statusUpload statusStatusM; Uploaded / Parsed / Validated / Failedtransaction_dateTransaction dateDate in imported rowM per linevalue_dateValue dateDate in imported rowOdescriptionBank descriptionText in imported rowOreference_numberUTR / ReferenceText in imported rowOdebit_amountDebitCurrency in imported rowM per line; zero if absentcredit_amountCreditCurrency in imported rowM per line; zero if absentbank_running_balanceBank running balanceCurrencyOline_hashLine checksumRead-onlyM; duplicate line detectionreconciliation_idReconciliationRead-onlySystemperiod_fromReconciliation fromDateMperiod_toReconciliation toDateMbook_balanceERP book balanceCalculatedSystemstatement_balanceBank statement balanceCalculatedSystemdifference_amountDifferenceCalculatedSystemreconciliation_statusReconciliation statusStatusM; InProgress / PendingReview / Approved / Lockedmatch_typeMatch typeStatus chipM; Exact / Suggested / Partial / Manual / Unmatchedmatched_amountMatched amountCurrencyMdifference_reasonDifference reasonTextareaC for exceptionreconciled_byReconciled byRead-onlySystemapproved_byApproved byRead-onlySystem
+Prototype interaction: Show side-by-side Bank Book and Statement rows. Support manual match/unmatch with reason; do not silently create vouchers.
+6.17 Vendor and procurement
+Capture supplier master, purchase request, bill and payment.
+Database keyPrototype labelUI controlRule / behaviourvendor_codeVendor codeTextMvendor_nameVendor nameTextMpanPANTextCgstinGSTINTextCemailEmailEmailOphone_numberPhonePhoneOpayment_terms_daysPayment terms (days)NumberOvendor_bank_account_idVendor bank accountRead-only/editSystem-managed beneficiary recordpurchase_request_idPurchase request IDRead-onlySystemrequested_byRequested byUser selectMestimated_amountEstimated amountCurrencyMpurchase_order_idPurchase orderRead-onlySystemvendor_bill_idVendor billRead-onlySystemsupplier_invoice_numberVendor invoice numberTextMsupplier_invoice_dateSupplier invoice dateDateMdue_dateDue dateDateMexpense_ledger_idExpense/asset ledgerSearch selectCtaxable_amountTaxable amountCurrencyMtax_amountTax amountCurrencyMgross_amountGross bill amountCurrencyMoutstanding_amountOutstandingCalculatedSystemvoucher_idAccounting voucherRead-onlyC after posting
+Prototype interaction: Demonstrate request ? approval ? purchase order ? bill ? payment ? bank match.
+6.18 Employee and payroll
+Maintain staff salary setup and simulate monthly payroll.
+Database keyPrototype labelUI controlRule / behaviouremployee_codeEmployee codeTextMemployee_nameEmployee nameTextMbranch_idBranchDropdownMdepartment_idDepartmentDropdownCjoining_dateJoining dateDateMbank_account_idSalary bank accountDropdownC; restrict accesssalary_structure_idSalary structureDropdownMsalary_component_idSalary componentDropdownM in component linesamount_or_rateAmount or rateCurrency/numberM per componentpayroll_run_idPayroll monthMonth selectorMgross_earningsGross earningsCalculatedSystememployee_deductionsEmployee deductionsCalculatedSystememployer_contributionsEmployer contributionsCalculatedSystemnet_payNet payCalculatedSystem
+Prototype interaction: Use sample rates labelled illustrative. Separate employee deductions from employer contributions.
+6.19 GST and TDS configuration
+Display effective-dated tax rules and sample transactions.
+Database keyPrototype labelUI controlRule / behaviourtax_typeTax typeDropdownM; GST / TDS / PF / ESI / PTtax_codeRule/section codeTextMtax_descriptionDescriptionTextMrateRateNumberC; illustrative onlythreshold_amountThresholdCurrencyCeffective_fromEffective fromDateMeffective_toEffective toDateOtax_ledger_idTax ledgerSearch selectCtaxable_baseTaxable baseCurrencyM on tax transactiontax_amountTax amountCurrencyM on tax transactiontax_statusTax statusStatusM on tax transactionchallan_referenceChallan referenceTextO
+Prototype interaction: Show that calculation rules are configurable and require authorised review. Do not present sample values as current law.
+6.20 Budgets, donations and inventory
+Show optional school finance modules.
+Database keyPrototype labelUI controlRule / behaviourbudget_nameBudget nameTextMbudget_amountApproved budgetCurrencyMdepartment_idDepartmentDropdownCbranch_idBranchDropdownCcommitted_amountCommitted amountCalculatedSystemactual_amountActual expenseCalculatedSystemfund_nameFund nameTextMrestriction_typeFund restrictionDropdownMdonor_nameDonorTextCdonation_amountDonation amountCurrencyM for donationinventory_item_idItemSearch selectM for stock rowquantityQuantityNumberM for stock rowunit_rateUnit rateCurrencyM for stock row
+Prototype interaction: Use summary cards and simple lists. Keep optional modules clearly labelled as enabled/disabled.
+6.21 Reports, approvals and audit log
+Provide read-only reporting with drill-down and approval review.
+Database keyPrototype labelUI controlRule / behaviourreport_typeReportDropdownMperiod_fromFrom dateDateCperiod_toTo dateDateCbranch_idBranch filterDropdownOledger_idLedger filterDropdownOapproval_statusApproval statusStatus filterOapproved_byApproverRead-only/userSystemaudit_log_idAudit event IDRead-onlySystemaction_typeActionRead-onlySystemold_valuesBefore valuesRead-only detailOnew_valuesAfter valuesRead-only detailO
+Prototype interaction: Reports show synthetic totals. Clicking a report row opens ledger/voucher details. Audit screen is read-only.
+
+
+7. Main end-to-end prototype workflows
+7.1 School fee and parent payment
+StepUser / systemPrototype actionExpected result1Student Fee AdminCreate fee head and fee plan for branch/class/yearDraft fee plan2Finance HeadReview and approve fee planPublished fee plan3SystemGenerate invoice for selected studentIssued invoice and outstanding amount4ParentOpen Parent Portal and select child/invoiceCorrect authorised fee detail5ParentClick Pay Now and select demo methodPayment attempt: Pending6SystemSimulate gateway success webhookPayment Success; duplicate event blocked7Accounting engineAllocate payment and post journalStudent receivable reduced; gateway clearing debited8Gateway / AccountantReview settlement batch and feesGross, charges, adjustment and net shown9AccountantMatch net settlement to imported bank lineGateway clearing reduced; Bank Book updated
+7.2 Vendor bill and bank payment
+StepUser / systemActionResult1Procurement CoordinatorCreate purchase request and choose branch/budgetRequest saved2ApproverApprove requestApproved request3AccountantCreate vendor bill and duplicate checkExpense/asset and payable recorded4Finance HeadApprove paymentPayment authorised5AccountantSelect school bank account and vendor beneficiaryPayment instruction/demo status6SystemStore UTR/reference and post payment as per policyVendor payable reduced; Bank Book updated7AccountantImport bank statement and match debitReconciliation updated
+7.3 Bank reconciliation
+8. Select the school bank account and statement period.
+9. Upload a sample CSV statement or load a seeded statement.
+10. Validate columns, date range, opening/closing balances and duplicate file/line fingerprints.
+11. Show bank statement transactions beside ERP Bank Book entries.
+12. Suggest matches using account, amount, debit/credit direction, reference and date.
+13. Allow the accountant to confirm, reject or manually match with a reason.
+14. For bank-only charges or interest, create a draft voucher for approval; never silently post it.
+15. Finance Head reviews differences and approves the reconciliation period.
+7.4 Payroll and salary payment
+16. HR/Payroll Officer maintains employee and salary components.
+17. Generate payroll for a month and selected branch.
+18. Show attendance inputs, earnings, employee deductions and employer contributions separately.
+19. Validate totals and create payroll preview.
+20. Finance Head approves payroll.
+21. Create salary payment batch against the selected school bank account.
+22. Simulate payment references and reconcile bank debits.
+7.5 Parent Portal access
+23. Guardian signs in using demo account.
+24. System loads only students linked through student_guardians.
+25. Guardian switches between linked children.
+26. Guardian selects an invoice and sees fee heads, paid amount and outstanding amount.
+27. Guardian pays through the demo checkout.
+28. Guardian sees payment status and receipt history.
+
+
+8. Copy-ready Google AI Studio prompts
+Use the prompts in order. Paste the first prompt in Build mode. After the project shell is generated, paste one module prompt per iteration. Do not ask the builder to generate every screen in a single step; smaller prompts make it easier to check consistency and fix interactions.
+8.1 Global prototype prompt
+Build a professional, responsive web application prototype called "School Finance ERP". This is a clickable product prototype for a school finance management system inspired by the general accounting workflow of Tally, but designed around school operations.
+
+TECHNICAL AND PROTOTYPE RULES
+- Build a web application using React and TypeScript.
+- Use a clean component structure and reusable form, table, modal, status badge, metric card and navigation components.
+- Use synthetic demo data only. Do not connect to a real bank, payment gateway, payroll provider, tax API or production database.
+- Do not ask for or store real bank passwords, card details, API secrets, PAN, Aadhaar or real student/employee personal data.
+- Simulate payments, webhooks, approvals, reconciliation and reports with mock data.
+- Keep all primary buttons functional: save, cancel, edit, view, approve, reject, post, export, upload sample statement, match, unmatch and switch role.
+- Use generated mock IDs internally. Never ask the user to type UUIDs.
+- Use consistent database keys and object relationships listed below, but show human-readable labels in the UI.
+- Add realistic validation, empty states, loading states, success/error messages and confirmation dialogs.
+
+DESIGN
+- Modern professional finance SaaS interface, desktop-first and responsive.
+- Light neutral background, navy text, restrained teal/blue accent, clear whitespace and readable tables.
+- Admin portal has left sidebar, top bar, organisation/company/branch/financial-year selector and profile menu.
+- Parent Portal has a separate simpler mobile-friendly layout.
+
+CORE ROLES
+Platform Super Admin; School Administrator; Finance Head/Controller; Accountant; Branch Finance/Cashier Officer; Student Fee Administrator; Payroll & HR Officer; Procurement & Budget Coordinator; School Leadership; Auditor; Parent/Guardian.
+Add a Demo Role selector so I can preview each role. Role changes must update navigation and action permissions in the prototype.
+
+CORE DATA CONVENTIONS
+Use organisation_id, company_id, branch_id and financial_year_id as data scope keys where relevant. Use table-specific primary keys such as ledger_id, voucher_id, student_id, fee_invoice_id, bank_account_id and reconciliation_id. Foreign-key relationships should be represented by selected records, not typed IDs.
+
+ADMIN NAVIGATION
+Dashboard; Organisation; Companies; Branches; Users & Roles; Account Groups; Ledgers; Cost Centres; Voucher Types; Students; Guardians; Fee Heads; Fee Plans; Fee Invoices; Receipts; Refunds; Bank Accounts; Bank Book; Payment Gateways; Settlements; Bank Statements; Reconciliation; Vendors; Purchase Requests; Vendor Bills; Payroll; Tax Settings; Budgets; Donations; Inventory; Reports; Approvals; Audit Logs.
+
+PARENT PORTAL
+Home; My Children; Fee Details; Pay Fees; Payment History; Receipts; Profile; Help/Requests.
+Parents can only view children linked to their guardian relationship record.
+
+ACCOUNTING RULES FOR THE DEMO
+- A posted voucher must have equal total debit and total credit.
+- Fee invoice, fee receipt, vendor bill and vendor payment are separate documents.
+- The Bank Book must reflect posted bank-ledger voucher lines; it is not a separate editable bank balance.
+- Gateway collection first posts to a gateway clearing ledger; later net settlement posts to the bank and gateway charge ledgers.
+- Bank reconciliation compares ERP Bank Book entries with imported bank statement lines.
+- Never silently delete or edit a posted voucher; demonstrate reversal/adjustment flow.
+
+Start by building the application shell, dashboard, role switcher, navigation and shared design system. Use fictional school data. Wait for my next prompt to build detailed modules.
+8.2 Module prompts to paste after the global prompt
+Prompt A - Organisation and access
+Extend the existing School Finance ERP prototype. Build Organisation, Company, Branch, Financial Year, User and Role screens. Use keys organisation_id, organisation_name, organisation_code, company_id, company_code, legal_name, entity_type, branch_id, branch_code, branch_name, financial_year_id, year_name, start_date, end_date, user_id, full_name, email, role_id and is_active. Show friendly labels, auto-generate IDs, validate unique codes and provide create/edit/view flows. Include company and branch selectors in the top bar. Do not replace the current app shell.
+Prompt B - Accounting masters
+Build Account Groups, Ledgers and Cost Centres. Account Group fields: group_code, group_name, parent_group_id, account_nature, statement_class, is_system_group, is_active. Ledger fields: ledger_code, ledger_name, group_id, ledger_type, opening_balance, opening_balance_side, bill_wise_enabled, cost_centre_enabled, reconciliation_enabled, is_system_control_ledger, ledger_status. Cost Centre fields: cost_category_id, category_name, cost_centre_id, cost_centre_code, cost_centre_name, parent_cost_centre_id, branch_id. Show hierarchy tree, searchable parent selectors and ledger detail with transaction history.
+Prompt C - Voucher engine
+Build voucher list and voucher create/detail screens. Voucher header keys: voucher_id, voucher_type_id, voucher_number, voucher_date, company_id, branch_id, financial_year_id, accounting_period_id, narration, source_module, source_record_id, status, total_debit, total_credit. Voucher line keys: voucher_line_id, ledger_id, line_number, debit_amount, credit_amount, cost_centre_id, party_id. Provide a repeatable line grid, live debit/credit totals, balance validation and Draft, Submit, Approve, Post and Reverse states. Posting is simulated only.
+Prompt D - Student fees and Parent Portal
+Build Student, Guardian, Fee Plan, Fee Invoice, Receipt and Parent Portal screens. Use student_id, admission_number, student_name, branch_id, academic_year_id, class_id, section_id, guardian_id, full_name, email, phone_number, portal_status, student_guardian_id, relationship_type, can_view_finance, can_make_payment, fee_plan_id, plan_name, plan_status, fee_head_id, amount, billing_frequency, due_date, fee_invoice_id, invoice_number, gross_amount, concession_amount, late_fee_amount, net_amount, invoice_status, fee_invoice_line_id, fee_payment_id, payment_amount, payment_mode, payment_status, payment_date, bank_account_id, gateway_payment_id, payment_reference, accounting_voucher_id, payment_allocation_id, allocated_amount, refund_id, refund_amount, refund_reason and refund_status. Support one guardian with multiple children and multiple guardians per child. Create a mobile-friendly parent view with child switcher, invoice detail, Pay Now simulation and receipt history.
+Prompt E - Banking and gateway
+Build Bank Account Master, Bank Ledger link, Bank Book, Payment Gateway Configuration, Gateway Payments, Settlement Batches, Bank Statement Import and Reconciliation. Use bank_account_id, bank_name, account_nickname, account_holder_name, account_number_encrypted, account_number_last4, ifsc_code, account_type, currency_code, ledger_id, opening_book_balance, allow_receipts, allow_payments, account_status, gateway_id, gateway_name, api_key_reference, api_secret_reference, webhook_secret_reference, clearing_ledger_id, charges_ledger_id, settlement_bank_account_id, provider_order_id, provider_payment_id, provider_event_id, payment_status, settlement_batch_id, provider_settlement_id, gross_amount, fee_amount, tax_on_fee_amount, refund_amount, net_amount, statement_id, statement_line_id, transaction_date, value_date, reference_number, debit_amount, credit_amount, bank_running_balance, line_hash, reconciliation_id, match_type, matched_amount and difference_reason. Show masked bank details. Use sample CSV import and simulated gateway events only.
+Prompt F - Procurement and payroll
+Build Vendors, Vendor Bank Accounts, Purchase Requests, Vendor Bills, Payments, Employees, Salary Components and Payroll Runs. Use vendor_id, vendor_code, vendor_name, pan, gstin, employee_id, employee_code, employee_name, branch_id, department_id, joining_date, employee_status, salary_structure_id, salary_component_id, amount_or_rate, payroll_run_id, gross_earnings, employee_deductions, employer_contributions and net_pay. Show approval steps and sample salary calculations marked illustrative.
+Prompt G - Reports and audit
+Build reports for Day Book, Ledger, Trial Balance, Income & Expenditure, Balance Sheet, Student Outstanding, Vendor Outstanding, Bank Book, Gateway Clearing, Payroll Register and Budget Variance. Add filters for company, branch, financial year, date range and status. Show synthetic values and let report rows drill down to vouchers/source records. Add read-only audit log with user, action, record, timestamp, old_values and new_values.
+Prompt H - Final role and interaction QA
+Review the current School Finance ERP prototype. Test every navigation item, form submit, dropdown, modal and primary action. Ensure role-based visibility and branch scoping are consistent. Check that parents cannot view unrelated students; auditors are read-only; cashiers cannot approve their own sensitive payments; posted vouchers cannot be edited directly; every posted voucher balances. Fix layout overflow, empty pages, console/runtime errors and broken links. Do not introduce real external integrations.
+
+
+9. Prototype test checklist
+TestActionExpected prototype resultRole switchingSwitch from Accountant to Parent/GuardianAdmin menu disappears; Parent Portal loadsCompany scopeSwitch company or branchTables and dashboard values change to the selected scopeLedger setupCreate a ledger under an account groupLedger appears in ledger list and voucher selectorCost CentreCreate Chennai and Madurai Cost CentresCost Centre dropdown displays both for eligible voucher linesVoucher balanceEnter debit 10,000 and credit 9,000Post disabled; difference of 1,000 shownVoucher postingMake debit and credit both 10,000Post can be simulated; voucher appears in Day BookFee planCreate plan and submit approvalPlan changes from Draft to Pending, then Approved/PublishedParent privacyLogin as one guardianOnly linked children and their invoices appearGateway successSimulate successful payment eventReceipt created once; invoice outstanding decreasesDuplicate webhookReplay same provider event IDNo second receipt or duplicate accounting postSettlementSet gross 25,000, fees 250, net 24,750Settlement arithmetic validatesBank importUpload sample statement CSVRows preview with debit/credit and referencesReconciliationMatch same amount/referenceMatched status shown; unmatched rows remain visibleBank-only chargeAdd statement-only 500 bank chargeSystem suggests draft voucher; does not auto-postVendor paymentApprove and simulate paymentVendor payable reduces and Bank Book updatesPayrollPreview salary runGross, employee deductions, employer contributions and net shown separatelyAuditEdit an unposted sample masterAudit preview records actor/action/timeResponsiveCheck desktop and mobile widthsNo horizontal clipping; Parent Portal works on mobile
+9.1 Sample demo data
+EntitySynthetic sampleOrganisationGreen Valley Education TrustCompanyGreen Valley SchoolBranchesChennai Campus, Coimbatore CampusFinancial Year2026-27Bank accountDemo SBI - Chennai Main; account ending 4521; fake onlyLedgersSBI Bank, Gateway Clearing, Gateway Charges, Tuition Fee Income, Student Receivable, Electricity Expense, Vendor PayableStudentAarav Kumar; admission number GV-1024; fictionalGuardianMeena Kumar; linked to Aarav and one fictional siblingFee invoiceINV-DEMO-1001; ?25,000 outstandingVendorABC School Supplies; fictionalGateway settlementGross ?25,000; fee ?250; net ?24,750
+
+
+10. What must change before production
+A Google AI Studio prototype is useful for reviewing navigation, screens and user experience. It is not a production-ready accounting system merely because the app preview runs. Before using real financial data, engineering must replace mock state with a secured backend, tested database and approved accounting rules.
+Prototype featureProduction requirementDemo role switcherReal authentication, server-side authorisation and session managementMock data/local stateRelational database, API validation, backups and audit controlsSimulated accounting postTransactional double-entry posting engine and immutable posted historyFake gateway checkoutProvider integration, signed webhook verification, idempotency and refund controlsSample bank CSVBank-specific file parsing, duplicate detection, secure storage and reconciliation testsDemo bank detailsEncryption, access masking, secret management and security reviewIllustrative tax calculationsCurrent effective-dated statutory rules approved by qualified advisersClient-side role hidingBackend permission checks and company/branch-level data isolationSample reportsReproducible reports sourced from posted ledger entries with drill-downPrototype approval buttonsMaker-checker workflow, approval limits and audit trail
+10.1 Key technical controls
+* Use UUIDs or a consistent ID strategy; do not let users type raw foreign keys.
+* Enforce company and branch scope on every relevant API.
+* Use decimal types for money; never use floating-point storage for accounting amounts.
+* Use database transactions when posting voucher headers, lines and source status.
+* Prevent duplicate provider payment events and duplicate statement imports.
+* Keep bank account numbers and gateway credentials out of client-side code.
+* Use reversal or adjustment entries for posted financial corrections.
+* Run accounting, privacy, security and reconciliation tests before go-live.
+10.2 Prototype handoff checklist
+* Product Owner confirms module scope and terminology.
+* School accountant confirms ledger mapping and accounting examples.
+* School management confirms roles and approval boundaries.
+* UI/UX reviewer confirms admin and Parent Portal layouts.
+* Engineering reviews data dictionary and API relationships.
+* QA verifies all prototype scenarios in Section 9.
+* Prototype is labelled clearly as demonstration software, not a live financial record system.
+
+
+11. References
+Official Google resources for the current AI Studio workflow. The interface can change; follow the current Build mode guidance in Google AI Studio.
+[1] Build apps in Google AI Studio - https://ai.google.dev/gemini-api/docs/aistudio-build-mode
+Build mode, prompt-driven web apps, live preview, refinement, code view and export/sync.
+[2] Google AI Studio quickstart - https://ai.google.dev/gemini-api/docs/ai-studio-quickstart
+Prompt experimentation and settings.
+[3] Deploying from Google AI Studio - https://ai.google.dev/gemini-api/docs/aistudio-deploying
+Deployment guidance; deploy only after production review.
+Final instruction
+Start with Section 8.1 Global Prototype Prompt. Then build one module at a time. Keep all sample data fictional and validate the generated interface against the field specifications in Section 6 before treating the prototype as approved.
+SCHOOL FINANCE ERP  |  GOOGLE AI STUDIO PROTOTYPE GUIDE
+
+Prototype planning document  •  Version 1.0  •  Page 
+
