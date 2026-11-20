@@ -76,53 +76,53 @@ export const LoginView: React.FC<LoginViewProps> = ({ onLogin, staffUsers }) => 
               <button
                 type="button"
                 onClick={() => { setSelectedRoleType('Admin'); setEmail('admin@greenvalley.edu'); }}
-                className={`p-3 rounded-xl border text-left transition flex flex-col items-center justify-center space-y-1 ${
+                className={`p-3 rounded-xl border text-center transition flex flex-col items-center justify-center space-y-1 ${
                   selectedRoleType === 'Admin'
                     ? 'bg-[#8B3552]/10 border-[#8B3552] text-[#8B3552] font-bold shadow-xs'
                     : 'bg-[#FAF7F3]/60 border-slate-200 text-slate-600 hover:bg-slate-50'
                 }`}
               >
                 <Building2 className={`w-4 h-4 ${selectedRoleType === 'Admin' ? 'text-[#8B3552]' : 'text-slate-400'}`} />
-                <span className="text-xs">Admin</span>
+                <span className="text-xs whitespace-nowrap">Admin</span>
               </button>
 
               <button
                 type="button"
                 onClick={() => { setSelectedRoleType('Superadmin'); setEmail('superadmin@greenvalley.edu'); }}
-                className={`p-3 rounded-xl border text-left transition flex flex-col items-center justify-center space-y-1 ${
+                className={`p-3 rounded-xl border text-center transition flex flex-col items-center justify-center space-y-1 ${
                   selectedRoleType === 'Superadmin'
                     ? 'bg-[#8B3552]/10 border-[#8B3552] text-[#8B3552] font-bold shadow-xs'
                     : 'bg-[#FAF7F3]/60 border-slate-200 text-slate-600 hover:bg-slate-50'
                 }`}
               >
                 <ShieldCheck className={`w-4 h-4 ${selectedRoleType === 'Superadmin' ? 'text-[#8B3552]' : 'text-slate-400'}`} />
-                <span className="text-xs">Super Admin</span>
+                <span className="text-xs whitespace-nowrap">Super Admin</span>
               </button>
 
               <button
                 type="button"
                 onClick={() => { setSelectedRoleType('Staff'); setEmail('staff@greenvalley.edu'); }}
-                className={`p-3 rounded-xl border text-left transition flex flex-col items-center justify-center space-y-1 ${
+                className={`p-3 rounded-xl border text-center transition flex flex-col items-center justify-center space-y-1 ${
                   selectedRoleType === 'Staff'
                     ? 'bg-[#8B3552]/10 border-[#8B3552] text-[#8B3552] font-bold shadow-xs'
                     : 'bg-[#FAF7F3]/60 border-slate-200 text-slate-600 hover:bg-slate-50'
                 }`}
               >
                 <Users className={`w-4 h-4 ${selectedRoleType === 'Staff' ? 'text-[#8B3552]' : 'text-slate-400'}`} />
-                <span className="text-xs">Staff Portal</span>
+                <span className="text-xs whitespace-nowrap">Staff Portal</span>
               </button>
 
               <button
                 type="button"
                 onClick={() => { setSelectedRoleType('Parent'); setEmail('parent@greenvalley.edu'); }}
-                className={`p-3 rounded-xl border text-left transition flex flex-col items-center justify-center space-y-1 ${
+                className={`p-3 rounded-xl border text-center transition flex flex-col items-center justify-center space-y-1 ${
                   selectedRoleType === 'Parent'
                     ? 'bg-[#C5A572]/15 border-[#C5A572] text-[#8B3552] font-bold shadow-xs'
                     : 'bg-[#FAF7F3]/60 border-slate-200 text-slate-600 hover:bg-slate-50'
                 }`}
               >
                 <GraduationCap className={`w-4 h-4 ${selectedRoleType === 'Parent' ? 'text-[#C5A572]' : 'text-slate-400'}`} />
-                <span className="text-xs">Parent</span>
+                <span className="text-xs whitespace-nowrap">Parent</span>
               </button>
             </div>
 
@@ -163,7 +163,7 @@ export const LoginView: React.FC<LoginViewProps> = ({ onLogin, staffUsers }) => 
               <div className="space-y-1.5">
                 <label className="block text-xs font-bold text-slate-700">Email Address</label>
                 <div className="relative">
-                  <Mail className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
+                  <Mail className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
                   <input
                     type="email"
                     value={email}
@@ -177,7 +177,7 @@ export const LoginView: React.FC<LoginViewProps> = ({ onLogin, staffUsers }) => 
               <div className="space-y-1.5">
                 <label className="block text-xs font-bold text-slate-700">Password</label>
                 <div className="relative">
-                  <Lock className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
+                  <Lock className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
                   <input
                     type="password"
                     value={password}

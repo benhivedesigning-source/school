@@ -25,11 +25,9 @@ export const BankingView: React.FC<BankingViewProps> = ({
   const [reconciliationStatus, setReconciliationStatus] = useState<'InProgress' | 'Approved'>('InProgress');
 
   const sectionControls = (
-    <div className="flex flex-wrap items-center gap-2.5 shrink-0">
-      <span className="px-3 py-1.5 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-xl text-xs font-bold shadow-2xs whitespace-nowrap">
-        Status: Bank Book Synced
-      </span>
-    </div>
+    <span className="px-3 py-2 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-xl text-xs font-bold shadow-2xs whitespace-nowrap shrink-0">
+      Status: Bank Book Synced
+    </span>
   );
 
   return (
@@ -37,23 +35,23 @@ export const BankingView: React.FC<BankingViewProps> = ({
       {activeTab === 'reconciliation' && (
         <div className="space-y-6">
           
-          <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs grid grid-cols-1 md:grid-cols-4 gap-6 text-xs">
-            <div>
+          <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-xs">
+            <div className="flex flex-col justify-between">
               <div className="text-slate-400 font-semibold">Selected Bank Account</div>
               <div className="text-slate-900 font-bold text-sm mt-1">State Bank of India (A/c ending 4521)</div>
             </div>
-            <div>
+            <div className="flex flex-col justify-between">
               <div className="text-slate-400 font-semibold">Statement Period</div>
-              <div className="text-slate-900 font-bold text-sm mt-1">{selectedStmt.statement_from_date} to {selectedStmt.statement_to_date}</div>
+              <div className="text-slate-900 font-bold text-sm mt-1 tabular-nums">{selectedStmt.statement_from_date} to {selectedStmt.statement_to_date}</div>
             </div>
-            <div>
+            <div className="flex flex-col justify-between">
               <div className="text-slate-400 font-semibold">Book Balance vs Statement</div>
-              <div className="text-emerald-700 font-bold text-sm mt-1">₹4,635,000 Matches Statement</div>
+              <div className="text-emerald-700 font-bold text-sm mt-1 tabular-nums">₹4,635,000 Matches Statement</div>
             </div>
-            <div>
+            <div className="flex flex-col justify-between">
               <div className="text-slate-400 font-semibold">Reconciliation Status</div>
               <div className="mt-1">
-                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                <span className="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 whitespace-nowrap">
                   {reconciliationStatus}
                 </span>
               </div>
@@ -63,13 +61,13 @@ export const BankingView: React.FC<BankingViewProps> = ({
           <div className="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-xs space-y-5">
             <div className="flex flex-wrap justify-between items-center gap-3">
               <h3 className="text-base font-bold text-slate-900">Imported Bank Statement Lines vs ERP Bank Book Entries</h3>
-              <div className="flex flex-wrap items-center gap-2.5">
+              <div className="flex flex-wrap items-center gap-2.5 shrink-0">
                 {sectionControls}
                 <button 
                   onClick={() => setReconciliationStatus('Approved')}
-                  className="px-4 py-2 bg-[#8B3552] hover:bg-[#722B43] text-white font-bold rounded-xl text-xs shadow-xs transition flex items-center space-x-1.5"
+                  className="px-4 py-2 bg-[#8B3552] hover:bg-[#722B43] text-white font-bold rounded-xl text-xs shadow-xs transition flex items-center space-x-1.5 whitespace-nowrap shrink-0"
                 >
-                  <CheckCircle2 className="w-4 h-4" />
+                  <CheckCircle2 className="w-4 h-4 shrink-0" />
                   <span>Approve Reconciliation Period</span>
                 </button>
               </div>

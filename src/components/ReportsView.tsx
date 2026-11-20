@@ -33,9 +33,9 @@ export const ReportsView: React.FC<ReportsViewProps> = ({ initialTab = 'trial_ba
               <h3 className="text-base font-bold text-slate-900">Trial Balance (Green Valley School - FY 2026-27)</h3>
               <p className="text-xs text-slate-500 font-medium mt-0.5">Automated aggregation of all ledger balances across active cost centres</p>
             </div>
-            <div className="flex flex-wrap items-center gap-2.5">
-              <span className="px-3 py-1 rounded-full text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 inline-flex items-center gap-1.5">
-                <CheckCircle2 className="w-3.5 h-3.5" />
+            <div className="flex flex-wrap items-center gap-2.5 shrink-0">
+              <span className="px-3 py-2 rounded-xl text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 inline-flex items-center gap-1.5 whitespace-nowrap">
+                <CheckCircle2 className="w-3.5 h-3.5 shrink-0" />
                 Books in Balance (Debit = Credit)
               </span>
               {sectionControls}
@@ -278,23 +278,23 @@ export const ReportsView: React.FC<ReportsViewProps> = ({ initialTab = 'trial_ba
             {sectionControls}
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-xs">
-            <div className="p-4 bg-[#FAF7F3] rounded-xl border border-slate-200 space-y-1">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs items-stretch">
+            <div className="p-4 bg-[#FAF7F3] rounded-xl border border-slate-200 flex flex-col justify-between space-y-1 h-full">
               <div className="text-slate-400 font-bold uppercase text-[10px]">0 - 30 Days (Current)</div>
               <div className="text-xl font-bold text-slate-900 tabular-nums">₹11,50,000</div>
               <div className="text-emerald-700 font-medium">Within regular grace period</div>
             </div>
-            <div className="p-4 bg-[#FAF7F3] rounded-xl border border-slate-200 space-y-1">
+            <div className="p-4 bg-[#FAF7F3] rounded-xl border border-slate-200 flex flex-col justify-between space-y-1 h-full">
               <div className="text-slate-400 font-bold uppercase text-[10px]">31 - 60 Days</div>
               <div className="text-xl font-bold text-amber-600 tabular-nums">₹4,20,000</div>
               <div className="text-slate-500 font-medium">Automated reminder sent</div>
             </div>
-            <div className="p-4 bg-[#FAF7F3] rounded-xl border border-slate-200 space-y-1">
+            <div className="p-4 bg-[#FAF7F3] rounded-xl border border-slate-200 flex flex-col justify-between space-y-1 h-full">
               <div className="text-slate-400 font-bold uppercase text-[10px]">61 - 90 Days</div>
               <div className="text-xl font-bold text-amber-700 tabular-nums">₹1,80,000</div>
               <div className="text-slate-500 font-medium">Follow-up calls scheduled</div>
             </div>
-            <div className="p-4 bg-[#FAF7F3] rounded-xl border border-slate-200 space-y-1">
+            <div className="p-4 bg-[#FAF7F3] rounded-xl border border-slate-200 flex flex-col justify-between space-y-1 h-full">
               <div className="text-slate-400 font-bold uppercase text-[10px]">90+ Days (Critical)</div>
               <div className="text-xl font-bold text-rose-600 tabular-nums">₹1,00,000</div>
               <div className="text-rose-600 font-medium">Requires management escalation</div>

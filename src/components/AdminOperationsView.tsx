@@ -126,10 +126,19 @@ export const AdminOperationsView: React.FC<AdminOperationsViewProps> = ({
               </div>
               {taxControls}
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="p-4 bg-[#FAF7F3] rounded-xl border border-slate-200"><div className="text-slate-500 text-xs">Taxable Outward Supplies</div> <div className="text-lg font-bold text-slate-900 mt-1 tabular-nums">₹4,50,000</div></div>
-              <div className="p-4 bg-[#FAF7F3] rounded-xl border border-slate-200"><div className="text-slate-500 text-xs">Input Tax Credit (ITC Available)</div> <div className="text-lg font-bold text-emerald-700 mt-1 tabular-nums">₹85,000</div></div>
-              <div className="p-4 bg-[#FAF7F3] rounded-xl border border-slate-200"><div className="text-slate-500 text-xs">Net GST Payable</div> <div className="text-lg font-bold text-burgundy-800 mt-1">₹0 (School Exemption)</div></div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-stretch">
+              <div className="p-4 bg-[#FAF7F3] rounded-xl border border-slate-200 flex flex-col justify-between h-full">
+                <div className="text-slate-500 text-xs">Taxable Outward Supplies</div>
+                <div className="text-lg font-bold text-slate-900 mt-1 tabular-nums">₹4,50,000</div>
+              </div>
+              <div className="p-4 bg-[#FAF7F3] rounded-xl border border-slate-200 flex flex-col justify-between h-full">
+                <div className="text-slate-500 text-xs">Input Tax Credit (ITC Available)</div>
+                <div className="text-lg font-bold text-emerald-700 mt-1 tabular-nums">₹85,000</div>
+              </div>
+              <div className="p-4 bg-[#FAF7F3] rounded-xl border border-slate-200 flex flex-col justify-between h-full">
+                <div className="text-slate-500 text-xs">Net GST Payable</div>
+                <div className="text-lg font-bold text-burgundy-800 mt-1">₹0 (School Exemption)</div>
+              </div>
             </div>
           </div>
         )}
@@ -197,9 +206,9 @@ export const AdminOperationsView: React.FC<AdminOperationsViewProps> = ({
                 <div className="font-bold text-slate-900">ITNS 281 Challan #TDS-OCT-2026</div>
                 <div className="text-xs text-slate-500">TDS on Salaries (192) & Professional Fees (194J)</div>
               </div>
-              <div className="sm:text-right">
+              <div className="flex flex-row sm:flex-col items-center sm:items-end justify-between w-full sm:w-auto gap-2 shrink-0">
                 <div className="text-sm font-bold text-slate-900 tabular-nums">₹32,500</div>
-                <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">Deposited (CIN: 008129)</span>
+                <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 whitespace-nowrap">Deposited (CIN: 008129)</span>
               </div>
             </div>
           </div>
@@ -335,16 +344,24 @@ export const AdminOperationsView: React.FC<AdminOperationsViewProps> = ({
     <div className="p-6 sm:p-8 max-w-7xl mx-auto space-y-6 sm:space-y-8">
       <div className="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-xs space-y-6">
         <h3 className="font-bold text-slate-900 text-base">Campus Operating Parameters</h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
-          <div className="p-4 bg-[#FAF7F3] rounded-xl border border-slate-200 space-y-2">
-            <div className="font-bold text-slate-900 text-sm">Automated Payment Notifications</div>
-            <p className="text-slate-500">Send instant SMS and Email notifications to parents upon receipt posting.</p>
-            <span className="inline-block px-2.5 py-0.5 rounded-md text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">Enabled</span>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs items-stretch">
+          <div className="p-4 bg-[#FAF7F3] rounded-xl border border-slate-200 flex flex-col justify-between space-y-3 h-full">
+            <div className="space-y-1.5">
+              <div className="font-bold text-slate-900 text-sm">Automated Payment Notifications</div>
+              <p className="text-slate-500">Send instant SMS and Email notifications to parents upon receipt posting.</p>
+            </div>
+            <div>
+              <span className="inline-block px-2.5 py-0.5 rounded-md text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 whitespace-nowrap">Enabled</span>
+            </div>
           </div>
-          <div className="p-4 bg-[#FAF7F3] rounded-xl border border-slate-200 space-y-2">
-            <div className="font-bold text-slate-900 text-sm">Maker-Checker Threshold</div>
-            <p className="text-slate-500">Disbursements above ₹50,000 require second-level finance approval.</p>
-            <span className="inline-block px-2.5 py-0.5 rounded-md text-[10px] font-bold bg-burgundy-50 text-burgundy-700 border border-burgundy-200">₹50,000 Cap</span>
+          <div className="p-4 bg-[#FAF7F3] rounded-xl border border-slate-200 flex flex-col justify-between space-y-3 h-full">
+            <div className="space-y-1.5">
+              <div className="font-bold text-slate-900 text-sm">Maker-Checker Threshold</div>
+              <p className="text-slate-500">Disbursements above ₹50,000 require second-level finance approval.</p>
+            </div>
+            <div>
+              <span className="inline-block px-2.5 py-0.5 rounded-md text-[10px] font-bold bg-burgundy-50 text-burgundy-700 border border-burgundy-200 whitespace-nowrap">₹50,000 Cap</span>
+            </div>
           </div>
         </div>
       </div>

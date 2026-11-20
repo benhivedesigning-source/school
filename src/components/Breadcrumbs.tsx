@@ -61,7 +61,7 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ currentRole, currentTa
         </span>
       </div>
 
-      <div className="hidden sm:flex items-center space-x-1.5 text-[11px] text-slate-400 font-mono shrink-0">
+      <div className="hidden sm:flex items-center space-x-1.5 text-[11px] text-slate-400 font-mono whitespace-nowrap shrink-0">
         <span>Scope:</span>
         <span className="text-burgundy-700 font-bold">
           {currentRole === 'Superadmin' ? 'Global Platform' : currentRole === 'Parent' ? 'Linked Children' : 'Assigned Campus'}

@@ -221,16 +221,16 @@ export const Sidebar: React.FC<SidebarProps> = ({
                     }}
                     className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold transition ${
                       hasActiveSub
-                        ? 'bg-[#8B3552] text-white font-bold shadow-xs border-l-2 border-[#C5A572]'
+                        ? 'bg-[#8B3552] text-white font-bold shadow-xs ring-1 ring-[#C5A572]/45'
                         : 'text-slate-300 hover:bg-[#432E41] hover:text-white'
                     }`}
                   >
-                    <div className="flex items-center space-x-2.5 truncate">
+                    <div className="flex items-center space-x-2.5 min-w-0">
                       <Icon className={`w-4 h-4 shrink-0 ${hasActiveSub ? 'text-[#C5A572]' : 'text-slate-400'}`} />
-                      <span className="truncate">{menu.title}</span>
+                      <span className="truncate text-left">{menu.title}</span>
                     </div>
                     {!isDirectDashboard && (
-                      <div className="flex items-center space-x-1 shrink-0">
+                      <div className="flex items-center shrink-0 ml-2">
                         {isExpanded ? <ChevronDown className="w-3.5 h-3.5 text-slate-400" /> : <ChevronRight className="w-3.5 h-3.5 text-slate-400" />}
                       </div>
                     )}
@@ -238,7 +238,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
                   {/* Submenu List */}
                   {isExpanded && (
-                    <div className="pl-7 pr-1 space-y-0.5 py-1 border-l border-[#4A3245] ml-4">
+                    <div className="ml-5 pl-3.5 pr-1 space-y-0.5 py-1 border-l border-[#4A3245]">
                       {menu.submenus.map(sub => {
                         const isSubActive = currentTab === sub.id;
                         return (
@@ -248,13 +248,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
                               onTabChange(sub.id);
                               if (window.innerWidth < 1024) onCloseMobile();
                             }}
-                            className={`w-full text-left px-2.5 py-1.5 rounded-lg text-xs transition truncate flex items-center justify-between ${
+                            className={`w-full text-left px-2.5 py-1.5 rounded-lg text-xs transition flex items-center gap-2 ${
                               isSubActive
                                 ? 'bg-[#8B3552] text-white font-bold shadow-xs'
                                 : 'text-slate-300 hover:bg-[#432E41] hover:text-white font-medium'
                             }`}
                           >
-                            <span className="truncate">• {sub.title}</span>
+                            <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${isSubActive ? 'bg-[#C5A572]' : 'bg-slate-500'}`} />
+                            <span className="truncate">{sub.title}</span>
                           </button>
                         );
                       })}

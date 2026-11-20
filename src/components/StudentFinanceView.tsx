@@ -97,16 +97,16 @@ export const StudentFinanceView: React.FC<StudentFinanceViewProps> = ({
                   const student = students.find(s => s.student_id === inv.student_id);
                   return (
                     <tr key={inv.fee_invoice_id} className="hover:bg-[#FAF7F3]/80 transition-colors">
-                      <td className="py-3.5 font-mono font-bold text-burgundy-700">{inv.invoice_number}</td>
+                      <td className="py-3.5 font-mono font-bold text-burgundy-700 whitespace-nowrap">{inv.invoice_number}</td>
                       <td className="py-3.5 font-bold text-slate-900">
-                        {student?.student_name} <span className="text-[10px] text-slate-400 font-mono">({student?.admission_number})</span>
+                        {student?.student_name} <span className="text-[10px] text-slate-400 font-mono whitespace-nowrap">({student?.admission_number})</span>
                       </td>
-                      <td className="py-3.5 text-slate-500 font-medium">{inv.invoice_date}</td>
-                      <td className="py-3.5 text-slate-500 font-medium">{inv.due_date}</td>
-                      <td className="py-3.5 text-right font-medium tabular-nums">₹{inv.gross_amount.toLocaleString('en-IN')}</td>
-                      <td className="py-3.5 text-right font-black text-slate-900 text-sm tabular-nums">₹{inv.net_amount.toLocaleString('en-IN')}</td>
-                      <td className="py-3.5 text-center">
-                        <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold ${
+                      <td className="py-3.5 text-slate-500 font-medium tabular-nums whitespace-nowrap">{inv.invoice_date}</td>
+                      <td className="py-3.5 text-slate-500 font-medium tabular-nums whitespace-nowrap">{inv.due_date}</td>
+                      <td className="py-3.5 text-right font-medium tabular-nums whitespace-nowrap">₹{inv.gross_amount.toLocaleString('en-IN')}</td>
+                      <td className="py-3.5 text-right font-black text-slate-900 text-sm tabular-nums whitespace-nowrap">₹{inv.net_amount.toLocaleString('en-IN')}</td>
+                      <td className="py-3.5 text-center whitespace-nowrap">
+                        <span className={`inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold whitespace-nowrap ${
                           inv.invoice_status === 'Paid' ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-amber-50 text-amber-700 border border-amber-200'
                         }`}>
                           {inv.invoice_status}
@@ -141,12 +141,12 @@ export const StudentFinanceView: React.FC<StudentFinanceViewProps> = ({
               <tbody className="divide-y divide-slate-100 text-slate-700">
                 {students.map(s => (
                   <tr key={s.student_id} className="hover:bg-[#FAF7F3]/80 transition-colors">
-                    <td className="py-3.5 font-mono font-bold text-burgundy-700">{s.admission_number}</td>
-                    <td className="py-3.5 font-bold text-slate-900 text-sm">{s.student_name}</td>
-                    <td className="py-3.5 font-medium text-slate-700">{s.class_id} - Section {s.section_id}</td>
-                    <td className="py-3.5 text-slate-500 font-medium">{s.admission_date}</td>
-                    <td className="py-3.5 text-center">
-                      <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                    <td className="py-3.5 font-mono font-bold text-burgundy-700 whitespace-nowrap">{s.admission_number}</td>
+                    <td className="py-3.5 font-bold text-slate-900 text-sm whitespace-nowrap">{s.student_name}</td>
+                    <td className="py-3.5 font-medium text-slate-700 whitespace-nowrap">{s.class_id} - Section {s.section_id}</td>
+                    <td className="py-3.5 text-slate-500 font-medium tabular-nums whitespace-nowrap">{s.admission_date}</td>
+                    <td className="py-3.5 text-center whitespace-nowrap">
+                      <span className="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 whitespace-nowrap">
                         {s.student_status}
                       </span>
                     </td>
@@ -181,13 +181,13 @@ export const StudentFinanceView: React.FC<StudentFinanceViewProps> = ({
                   const student = students.find(s => s.student_id === p.student_id);
                   return (
                     <tr key={p.fee_payment_id} className="hover:bg-[#FAF7F3]/80 transition-colors">
-                      <td className="py-3.5 font-mono font-bold text-burgundy-700">{p.fee_payment_id}</td>
-                      <td className="py-3.5 font-bold text-slate-900">{student?.student_name}</td>
-                      <td className="py-3.5 font-medium text-slate-700">{p.payment_mode}</td>
-                      <td className="py-3.5 text-slate-500 font-medium">{p.payment_date}</td>
-                      <td className="py-3.5 text-right font-black text-slate-900 text-sm tabular-nums">₹{p.payment_amount.toLocaleString('en-IN')}</td>
-                      <td className="py-3.5 text-center">
-                        <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                      <td className="py-3.5 font-mono font-bold text-burgundy-700 whitespace-nowrap">{p.fee_payment_id}</td>
+                      <td className="py-3.5 font-bold text-slate-900 whitespace-nowrap">{student?.student_name}</td>
+                      <td className="py-3.5 font-medium text-slate-700 whitespace-nowrap">{p.payment_mode}</td>
+                      <td className="py-3.5 text-slate-500 font-medium tabular-nums whitespace-nowrap">{p.payment_date}</td>
+                      <td className="py-3.5 text-right font-black text-slate-900 text-sm tabular-nums whitespace-nowrap">₹{p.payment_amount.toLocaleString('en-IN')}</td>
+                      <td className="py-3.5 text-center whitespace-nowrap">
+                        <span className="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 whitespace-nowrap">
                           {p.payment_status}
                         </span>
                       </td>
@@ -209,20 +209,20 @@ export const StudentFinanceView: React.FC<StudentFinanceViewProps> = ({
           <div className="space-y-4">
             {feePlans.map(fp => (
               <div key={fp.fee_plan_id} className="p-5 rounded-xl bg-[#FAF7F3] border border-slate-200 space-y-3 shadow-2xs">
-                <div className="flex justify-between items-center">
+                <div className="flex flex-wrap justify-between items-center gap-3">
                   <div>
                     <h4 className="font-bold text-slate-900 text-sm sm:text-base">{fp.plan_name}</h4>
                     <p className="text-xs text-slate-500 mt-0.5">Class: {fp.class_id} | Academic Year: {fp.academic_year_id}</p>
                   </div>
-                  <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-burgundy-50 text-burgundy-700 border border-burgundy-200">
+                  <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-burgundy-50 text-burgundy-700 border border-burgundy-200 whitespace-nowrap shrink-0">
                     {fp.plan_status}
                   </span>
                 </div>
-                <div className="border-t border-slate-200 pt-3 grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+                <div className="border-t border-slate-200 pt-3 grid grid-cols-1 md:grid-cols-3 gap-3 items-stretch text-xs">
                   {fp.lines.map((l, i) => (
-                    <div key={i} className="bg-white p-3 rounded-lg border border-slate-200 shadow-2xs space-y-0.5">
+                    <div key={i} className="bg-white p-3 rounded-lg border border-slate-200 shadow-2xs flex flex-col justify-between h-full space-y-1">
                       <div className="text-slate-400 font-semibold">Head ID: {l.fee_head_id}</div>
-                      <div className="text-slate-900 font-black text-sm mt-0.5 tabular-nums">₹{l.amount.toLocaleString('en-IN')} <span className="text-xs font-normal text-slate-500">({l.billing_frequency})</span></div>
+                      <div className="text-slate-900 font-black text-sm tabular-nums">₹{l.amount.toLocaleString('en-IN')} <span className="text-xs font-normal text-slate-500">({l.billing_frequency})</span></div>
                     </div>
                   ))}
                 </div>
@@ -259,14 +259,14 @@ export const StudentFinanceView: React.FC<StudentFinanceViewProps> = ({
               <tbody className="divide-y divide-slate-100 text-slate-700">
                 {refunds.map(r => (
                   <tr key={r.refund_id} className="hover:bg-[#FAF7F3]/80 transition-colors">
-                    <td className="py-3.5 font-mono font-bold text-burgundy-700">{r.refund_id}</td>
-                    <td className="py-3.5 font-bold text-slate-900">{r.student_name}</td>
+                    <td className="py-3.5 font-mono font-bold text-burgundy-700 whitespace-nowrap">{r.refund_id}</td>
+                    <td className="py-3.5 font-bold text-slate-900 whitespace-nowrap">{r.student_name}</td>
                     <td className="py-3.5 text-slate-600 font-medium">{r.reason}</td>
-                    <td className="py-3.5 text-slate-500">{r.disbursement_mode}</td>
-                    <td className="py-3.5 text-slate-500 font-medium">{r.request_date}</td>
-                    <td className="py-3.5 text-right font-black text-slate-900 text-sm tabular-nums">₹{r.amount.toLocaleString('en-IN')}</td>
-                    <td className="py-3.5 text-center">
-                      <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold ${
+                    <td className="py-3.5 text-slate-500 whitespace-nowrap">{r.disbursement_mode}</td>
+                    <td className="py-3.5 text-slate-500 font-medium tabular-nums whitespace-nowrap">{r.request_date}</td>
+                    <td className="py-3.5 text-right font-black text-slate-900 text-sm tabular-nums whitespace-nowrap">₹{r.amount.toLocaleString('en-IN')}</td>
+                    <td className="py-3.5 text-center whitespace-nowrap">
+                      <span className={`inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold whitespace-nowrap ${
                         r.status === 'Approved' ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-amber-50 text-amber-700 border border-amber-200'
                       }`}>
                         {r.status}

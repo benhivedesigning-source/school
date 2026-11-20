@@ -147,15 +147,15 @@ export const ProcurementView: React.FC<ProcurementViewProps> = ({
                   const vendor = vendors.find(v => v.vendor_id === vb.vendor_id);
                   return (
                     <tr key={vb.vendor_bill_id} className="hover:bg-[#FAF7F3]/80 transition">
-                      <td className="py-4 font-mono font-semibold text-burgundy-700">{vb.supplier_invoice_number}</td>
-                      <td className="py-4 font-bold text-slate-900 text-sm">{vendor?.vendor_name}</td>
-                      <td className="py-4 text-slate-500 font-medium">{vb.supplier_invoice_date}</td>
-                      <td className="py-4 text-slate-500 font-medium">{vb.due_date}</td>
-                      <td className="py-4 text-right font-medium text-slate-700 tabular-nums">₹{vb.taxable_amount.toLocaleString('en-IN')}</td>
-                      <td className="py-4 text-right font-bold text-slate-900 text-sm tabular-nums">₹{vb.gross_amount.toLocaleString('en-IN')}</td>
-                      <td className="py-4 text-center">
-                        <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 inline-flex items-center gap-1">
-                          <CheckCircle2 className="w-3 h-3" />
+                      <td className="py-4 font-mono font-semibold text-burgundy-700 whitespace-nowrap">{vb.supplier_invoice_number}</td>
+                      <td className="py-4 font-bold text-slate-900 text-sm whitespace-nowrap">{vendor?.vendor_name}</td>
+                      <td className="py-4 text-slate-500 font-medium tabular-nums whitespace-nowrap">{vb.supplier_invoice_date}</td>
+                      <td className="py-4 text-slate-500 font-medium tabular-nums whitespace-nowrap">{vb.due_date}</td>
+                      <td className="py-4 text-right font-medium text-slate-700 tabular-nums whitespace-nowrap">₹{vb.taxable_amount.toLocaleString('en-IN')}</td>
+                      <td className="py-4 text-right font-bold text-slate-900 text-sm tabular-nums whitespace-nowrap">₹{vb.gross_amount.toLocaleString('en-IN')}</td>
+                      <td className="py-4 text-center whitespace-nowrap">
+                        <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 inline-flex items-center gap-1 whitespace-nowrap">
+                          <CheckCircle2 className="w-3 h-3 shrink-0" />
                           {vb.status}
                         </span>
                       </td>
@@ -194,18 +194,18 @@ export const ProcurementView: React.FC<ProcurementViewProps> = ({
               <tbody className="divide-y divide-slate-100 text-slate-700">
                 {purchaseOrders.map(po => (
                   <tr key={po.po_id} className="hover:bg-[#FAF7F3]/80 transition">
-                    <td className="py-4 font-mono font-bold text-burgundy-700">{po.po_id}</td>
-                    <td className="py-4 font-bold text-slate-900 text-sm">{po.vendor_name}</td>
+                    <td className="py-4 font-mono font-bold text-burgundy-700 whitespace-nowrap">{po.po_id}</td>
+                    <td className="py-4 font-bold text-slate-900 text-sm whitespace-nowrap">{po.vendor_name}</td>
                     <td className="py-4">
                       <div className="font-medium text-slate-800">{po.items}</div>
                       <div className="text-[11px] text-slate-400">By {po.requested_by}</div>
                     </td>
-                    <td className="py-4 text-slate-500 font-medium">{po.request_date}</td>
-                    <td className="py-4 text-right font-black text-slate-900 text-sm tabular-nums">
+                    <td className="py-4 text-slate-500 font-medium tabular-nums whitespace-nowrap">{po.request_date}</td>
+                    <td className="py-4 text-right font-black text-slate-900 text-sm tabular-nums whitespace-nowrap">
                       ₹{po.total_amount.toLocaleString('en-IN')}
                     </td>
-                    <td className="py-4 text-center">
-                      <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold ${
+                    <td className="py-4 text-center whitespace-nowrap">
+                      <span className={`inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold whitespace-nowrap ${
                         po.status === 'Approved'
                           ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
                           : po.status === 'Fulfilled'
@@ -250,16 +250,16 @@ export const ProcurementView: React.FC<ProcurementViewProps> = ({
               <tbody className="divide-y divide-slate-100 text-slate-700">
                 {vendorPayments.map(vp => (
                   <tr key={vp.payment_id} className="hover:bg-[#FAF7F3]/80 transition">
-                    <td className="py-4 font-mono font-bold text-burgundy-700">{vp.payment_id}</td>
-                    <td className="py-4 font-bold text-slate-900 text-sm">{vp.vendor_name}</td>
-                    <td className="py-4 font-mono text-slate-600">{vp.bill_ref}</td>
-                    <td className="py-4 text-slate-600 font-medium">{vp.bank_account}</td>
-                    <td className="py-4 text-slate-500 font-medium">{vp.payment_date}</td>
-                    <td className="py-4 text-right font-black text-slate-900 text-sm tabular-nums">
+                    <td className="py-4 font-mono font-bold text-burgundy-700 whitespace-nowrap">{vp.payment_id}</td>
+                    <td className="py-4 font-bold text-slate-900 text-sm whitespace-nowrap">{vp.vendor_name}</td>
+                    <td className="py-4 font-mono text-slate-600 whitespace-nowrap">{vp.bill_ref}</td>
+                    <td className="py-4 text-slate-600 font-medium whitespace-nowrap">{vp.bank_account}</td>
+                    <td className="py-4 text-slate-500 font-medium tabular-nums whitespace-nowrap">{vp.payment_date}</td>
+                    <td className="py-4 text-right font-black text-slate-900 text-sm tabular-nums whitespace-nowrap">
                       ₹{vp.amount.toLocaleString('en-IN')}
                     </td>
-                    <td className="py-4 text-center">
-                      <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                    <td className="py-4 text-center whitespace-nowrap">
+                      <span className="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 whitespace-nowrap">
                         {vp.status}
                       </span>
                     </td>
@@ -282,20 +282,20 @@ export const ProcurementView: React.FC<ProcurementViewProps> = ({
             {sectionControls}
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-stretch">
             {vendors.map(v => (
-              <div key={v.vendor_id} className="p-5 rounded-xl bg-[#FAF7F3]/80 border border-slate-200 space-y-3 hover:border-slate-300 transition">
-                <div className="flex justify-between items-start">
-                  <div className="flex items-center space-x-3">
-                    <div className="p-2 rounded-xl bg-burgundy-50 text-burgundy-700 border border-burgundy-100">
+              <div key={v.vendor_id} className="p-5 rounded-xl bg-[#FAF7F3]/80 border border-slate-200 flex flex-col justify-between h-full space-y-3 hover:border-slate-300 transition">
+                <div className="flex justify-between items-start gap-3">
+                  <div className="flex items-center space-x-3 min-w-0">
+                    <div className="p-2 rounded-xl bg-burgundy-50 text-burgundy-700 border border-burgundy-100 shrink-0">
                       <Building2 className="w-5 h-5" />
                     </div>
-                    <div>
-                      <h4 className="font-bold text-slate-900 text-sm">{v.vendor_name}</h4>
-                      <p className="text-xs text-slate-500 font-medium">{v.email}</p>
+                    <div className="min-w-0">
+                      <h4 className="font-bold text-slate-900 text-sm truncate">{v.vendor_name}</h4>
+                      <p className="text-xs text-slate-500 font-medium truncate">{v.email}</p>
                     </div>
                   </div>
-                  <span className="px-2.5 py-0.5 rounded-md text-[10px] font-mono font-bold bg-burgundy-50 text-burgundy-700 border border-burgundy-200">
+                  <span className="px-2.5 py-0.5 rounded-md text-[10px] font-mono font-bold bg-burgundy-50 text-burgundy-700 border border-burgundy-200 whitespace-nowrap shrink-0">
                     {v.vendor_code}
                   </span>
                 </div>

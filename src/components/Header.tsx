@@ -101,16 +101,16 @@ export const Header: React.FC<HeaderProps> = ({
 
         {/* Middle: Context Selectors (Admin / Superadmin only) */}
         {currentRole !== 'Parent' && (
-          <div className="hidden md:flex items-center space-x-2.5 text-xs">
+          <div className="hidden md:flex items-center space-x-2.5 text-xs shrink-0">
             {/* Organisation Selector */}
             <div className="relative">
               <button 
                 onClick={() => { setShowCompanyMenu(!showCompanyMenu); setShowBranchMenu(false); setShowRoleMenu(false); }}
-                className="flex items-center space-x-1.5 bg-[#FAF7F3] hover:bg-[#FAF7F3]/80 text-slate-700 font-bold px-3 py-2 rounded-xl border border-slate-200 transition shadow-2xs"
+                className="flex items-center space-x-1.5 bg-[#FAF7F3] hover:bg-[#FAF7F3]/80 text-slate-700 font-bold px-3 py-2 rounded-xl border border-slate-200 transition shadow-2xs whitespace-nowrap shrink-0"
               >
-                <Globe className="w-3.5 h-3.5 text-[#8B3552]" />
-                <span className="truncate max-w-[130px]">{selectedCompany.display_name}</span>
-                <ChevronDown className="w-3 h-3 text-slate-400" />
+                <Globe className="w-3.5 h-3.5 text-[#8B3552] shrink-0" />
+                <span className="truncate max-w-[140px]">{selectedCompany.display_name}</span>
+                <ChevronDown className="w-3 h-3 text-slate-400 shrink-0" />
               </button>
 
               {showCompanyMenu && (
@@ -134,10 +134,10 @@ export const Header: React.FC<HeaderProps> = ({
             <div className="relative">
               <button 
                 onClick={() => { setShowBranchMenu(!showBranchMenu); setShowCompanyMenu(false); setShowRoleMenu(false); }}
-                className="flex items-center space-x-1.5 bg-[#FAF7F3] hover:bg-[#FAF7F3]/80 text-slate-700 font-bold px-3 py-2 rounded-xl border border-slate-200 transition shadow-2xs"
+                className="flex items-center space-x-1.5 bg-[#FAF7F3] hover:bg-[#FAF7F3]/80 text-slate-700 font-bold px-3 py-2 rounded-xl border border-slate-200 transition shadow-2xs whitespace-nowrap shrink-0"
               >
-                <span className="truncate max-w-[130px]">{selectedBranch.branch_name}</span>
-                <ChevronDown className="w-3 h-3 text-slate-400" />
+                <span className="truncate max-w-[140px]">{selectedBranch.branch_name}</span>
+                <ChevronDown className="w-3 h-3 text-slate-400 shrink-0" />
               </button>
 
               {showBranchMenu && (
@@ -158,28 +158,28 @@ export const Header: React.FC<HeaderProps> = ({
             </div>
 
             {/* Financial Year badge */}
-            <span className="px-3 py-2 bg-[#FAF7F3] text-slate-700 font-mono font-bold rounded-xl border border-slate-200 text-[11px] shadow-2xs">
+            <span className="px-3 py-2 bg-[#FAF7F3] text-slate-700 font-mono font-bold rounded-xl border border-slate-200 text-[11px] shadow-2xs whitespace-nowrap shrink-0">
               {selectedFy.year_name}
             </span>
           </div>
         )}
 
         {/* Right: Role Switcher & User Profile */}
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center space-x-2.5 shrink-0">
           
           {/* Central Role Selector Pill Button */}
           <div className="relative">
             <button
               onClick={() => { setShowRoleMenu(!showRoleMenu); setShowCompanyMenu(false); setShowBranchMenu(false); }}
-              className={`flex items-center space-x-2 px-3.5 py-2 rounded-xl border text-xs font-bold transition shadow-xs ${
+              className={`flex items-center space-x-2 px-3.5 py-2 rounded-xl border text-xs font-bold transition shadow-xs whitespace-nowrap shrink-0 ${
                 currentRole === 'Parent'
                   ? 'bg-[#C5A572]/15 border-[#C5A572]/50 text-[#8B3552] hover:bg-[#C5A572]/25'
                   : 'bg-[#8B3552]/10 border-[#8B3552]/30 text-[#8B3552] hover:bg-[#8B3552]/15'
               }`}
             >
-              <Shield className="w-3.5 h-3.5 text-[#8B3552]" />
+              <Shield className="w-3.5 h-3.5 text-[#8B3552] shrink-0" />
               <span>Role: <strong className="ml-0.5">{currentRole}</strong></span>
-              <ChevronDown className="w-3.5 h-3.5 text-[#8B3552]" />
+              <ChevronDown className="w-3.5 h-3.5 text-[#8B3552] shrink-0" />
             </button>
 
             {showRoleMenu && (
@@ -224,8 +224,8 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
 
           {/* User info avatar & Logout */}
-          <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 rounded-full bg-[#FAF7F3] border border-[#8B3552]/30 flex items-center justify-center font-bold text-xs text-[#8B3552]" title="Signed in User">
+          <div className="flex items-center space-x-2 shrink-0">
+            <div className="w-8 h-8 rounded-full bg-[#FAF7F3] border border-[#8B3552]/30 flex items-center justify-center font-bold text-xs text-[#8B3552] shrink-0" title="Signed in User">
               {currentRole === 'Superadmin' ? 'SI' :
                currentRole === 'Admin' ? 'KR' :
                currentRole === 'Staff' ? (activeStaffUser?.full_name?.substring(0, 2).toUpperCase() || 'ST') : 'MK'}
@@ -233,7 +233,7 @@ export const Header: React.FC<HeaderProps> = ({
             {onLogout && (
               <button
                 onClick={onLogout}
-                className="p-2 rounded-xl text-slate-400 hover:text-rose-600 hover:bg-rose-50 border border-slate-200 hover:border-rose-200 transition"
+                className="p-2 rounded-xl text-slate-400 hover:text-rose-600 hover:bg-rose-50 border border-slate-200 hover:border-rose-200 transition shrink-0"
                 title="Sign Out / Logout"
                 aria-label="Logout"
               >

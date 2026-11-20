@@ -106,11 +106,9 @@ export const ApprovalsView: React.FC<ApprovalsViewProps> = ({ auditLogs, initial
   const pendingCount = approvals.filter(a => a.status === 'Pending').length;
 
   const sectionControls = (
-    <div className="flex flex-wrap items-center gap-2.5 shrink-0">
-      <span className="px-3 py-1.5 bg-amber-50 text-amber-800 border border-amber-200 rounded-xl text-xs font-bold shadow-2xs whitespace-nowrap">
-        {pendingCount} Pending Reviews
-      </span>
-    </div>
+    <span className="px-3 py-2 bg-amber-50 text-amber-800 border border-amber-200 rounded-xl text-xs font-bold shadow-2xs whitespace-nowrap shrink-0">
+      {pendingCount} Pending Reviews
+    </span>
   );
 
   return (
@@ -127,7 +125,7 @@ export const ApprovalsView: React.FC<ApprovalsViewProps> = ({ auditLogs, initial
                   <button
                     key={type}
                     onClick={() => setTypeFilter(type)}
-                    className={`px-3 py-1 rounded-lg font-bold capitalize transition whitespace-nowrap shrink-0 ${
+                    className={`px-3 py-1.5 rounded-lg font-bold capitalize transition whitespace-nowrap shrink-0 ${
                       typeFilter === type
                         ? 'bg-[#8B3552] text-white'
                         : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
@@ -234,16 +232,16 @@ export const ApprovalsView: React.FC<ApprovalsViewProps> = ({ auditLogs, initial
               <p className="text-xs text-slate-500 font-medium mt-0.5">Tamper-evident logs of administrative actions, role assignments, attendance entries, and ledger postings</p>
             </div>
             
-            <div className="flex flex-wrap items-center gap-2.5">
+            <div className="flex flex-wrap items-center gap-2.5 shrink-0">
               {sectionControls}
-              <div className="relative min-w-[220px]">
-                <Search className="w-3.5 h-3.5 absolute left-3 top-2.5 text-slate-400" />
+              <div className="relative min-w-[230px]">
+                <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
                 <input
                   type="text"
                   placeholder="Search audit trail by actor or action..."
                   value={auditSearch}
                   onChange={e => setAuditSearch(e.target.value)}
-                  className="w-full bg-[#FAF7F3] border border-slate-200 rounded-lg pl-8 pr-3 py-1.5 text-xs text-slate-800 font-medium focus:outline-none focus:border-burgundy-500"
+                  className="w-full bg-[#FAF7F3] border border-slate-200 rounded-xl pl-8 pr-3 py-2 text-xs text-slate-800 font-medium focus:outline-none focus:border-burgundy-500"
                 />
               </div>
             </div>

@@ -339,7 +339,7 @@ export const AttendanceView: React.FC<AttendanceViewProps> = ({
               setFormError('');
               setShowMarkModal(true);
             }}
-            className="px-3 py-1.5 bg-[#8B3552] hover:bg-[#722B43] text-white font-semibold rounded-xl text-xs shadow-xs transition flex items-center space-x-1.5 whitespace-nowrap shrink-0"
+            className="px-3.5 py-2 bg-[#8B3552] hover:bg-[#722B43] text-white font-semibold rounded-xl text-xs shadow-xs transition flex items-center space-x-1.5 whitespace-nowrap shrink-0"
           >
             <Plus className="w-3.5 h-3.5 shrink-0" />
             <span>Mark Attendance</span>
@@ -352,7 +352,7 @@ export const AttendanceView: React.FC<AttendanceViewProps> = ({
               setBulkSelectedEmpIds(employees.map(e => e.employee_id));
               setShowBulkModal(true);
             }}
-            className="px-3 py-1.5 bg-white hover:bg-[#FAF7F3] text-slate-700 border border-slate-200 font-semibold rounded-xl text-xs shadow-xs transition flex items-center space-x-1.5 whitespace-nowrap shrink-0"
+            className="px-3.5 py-2 bg-white hover:bg-[#FAF7F3] text-slate-700 border border-slate-200 font-semibold rounded-xl text-xs shadow-xs transition flex items-center space-x-1.5 whitespace-nowrap shrink-0"
           >
             <Users className="w-3.5 h-3.5 text-burgundy-600 shrink-0" />
             <span>Bulk Mark</span>
@@ -367,7 +367,7 @@ export const AttendanceView: React.FC<AttendanceViewProps> = ({
             setImportFileName('');
             setShowImportModal(true);
           }}
-          className="px-3 py-1.5 bg-white hover:bg-[#FAF7F3] text-slate-700 border border-slate-200 font-semibold rounded-xl text-xs shadow-xs transition flex items-center space-x-1.5 whitespace-nowrap shrink-0"
+          className="px-3.5 py-2 bg-white hover:bg-[#FAF7F3] text-slate-700 border border-slate-200 font-semibold rounded-xl text-xs shadow-xs transition flex items-center space-x-1.5 whitespace-nowrap shrink-0"
           title="Import Biometric CSV Feed"
         >
           <Upload className="w-3.5 h-3.5 text-champagne-600 shrink-0" />
@@ -378,7 +378,7 @@ export const AttendanceView: React.FC<AttendanceViewProps> = ({
       {canExport && (
         <button
           onClick={handleExportCSV}
-          className="px-3 py-1.5 bg-white hover:bg-[#FAF7F3] text-slate-700 border border-slate-200 font-semibold rounded-xl text-xs shadow-xs transition flex items-center space-x-1.5 whitespace-nowrap shrink-0"
+          className="px-3.5 py-2 bg-white hover:bg-[#FAF7F3] text-slate-700 border border-slate-200 font-semibold rounded-xl text-xs shadow-xs transition flex items-center space-x-1.5 whitespace-nowrap shrink-0"
           title="Export Attendance to CSV"
         >
           <Download className="w-3.5 h-3.5 text-slate-600 shrink-0" />
@@ -389,7 +389,7 @@ export const AttendanceView: React.FC<AttendanceViewProps> = ({
       {canPrint && (
         <button
           onClick={handlePrint}
-          className="px-3 py-1.5 bg-white hover:bg-[#FAF7F3] text-slate-700 border border-slate-200 font-semibold rounded-xl text-xs shadow-xs transition flex items-center space-x-1.5 whitespace-nowrap shrink-0"
+          className="px-3.5 py-2 bg-white hover:bg-[#FAF7F3] text-slate-700 border border-slate-200 font-semibold rounded-xl text-xs shadow-xs transition flex items-center space-x-1.5 whitespace-nowrap shrink-0"
           title="Print Summary Sheet"
         >
           <Printer className="w-3.5 h-3.5 text-slate-600 shrink-0" />
@@ -402,47 +402,47 @@ export const AttendanceView: React.FC<AttendanceViewProps> = ({
   return (
     <div className="space-y-6">
       {/* Summary KPI Cards */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
-        <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-xs">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 items-stretch">
+        <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-xs flex flex-col justify-between h-full">
           <div className="text-slate-400 text-[11px] font-bold uppercase tracking-wider">Total Staff</div>
           <div className="text-xl font-extrabold text-slate-900 mt-1 tabular-nums">{stats.total}</div>
           <div className="text-[10px] text-slate-500 mt-0.5 font-medium">Active roster</div>
         </div>
-        <div className="bg-white p-4 rounded-xl border border-emerald-200 bg-emerald-50/20 shadow-xs">
+        <div className="bg-white p-4 rounded-xl border border-emerald-200 bg-emerald-50/20 shadow-xs flex flex-col justify-between h-full">
           <div className="text-emerald-700 text-[11px] font-bold uppercase tracking-wider flex items-center space-x-1">
-            <CheckCircle2 className="w-3 h-3 text-emerald-600" />
+            <CheckCircle2 className="w-3 h-3 text-emerald-600 shrink-0" />
             <span>Present</span>
           </div>
           <div className="text-xl font-extrabold text-emerald-700 mt-1 tabular-nums">{stats.present}</div>
           <div className="text-[10px] text-emerald-600 font-medium">On campus</div>
         </div>
-        <div className="bg-white p-4 rounded-xl border border-rose-200 bg-rose-50/20 shadow-xs">
+        <div className="bg-white p-4 rounded-xl border border-rose-200 bg-rose-50/20 shadow-xs flex flex-col justify-between h-full">
           <div className="text-rose-700 text-[11px] font-bold uppercase tracking-wider flex items-center space-x-1">
-            <XCircle className="w-3 h-3 text-rose-600" />
+            <XCircle className="w-3 h-3 text-rose-600 shrink-0" />
             <span>Absent</span>
           </div>
           <div className="text-xl font-extrabold text-rose-700 mt-1 tabular-nums">{stats.absent}</div>
           <div className="text-[10px] text-rose-600 font-medium">Unexcused</div>
         </div>
-        <div className="bg-white p-4 rounded-xl border border-amber-200 bg-amber-50/20 shadow-xs">
+        <div className="bg-white p-4 rounded-xl border border-amber-200 bg-amber-50/20 shadow-xs flex flex-col justify-between h-full">
           <div className="text-amber-700 text-[11px] font-bold uppercase tracking-wider flex items-center space-x-1">
-            <Clock className="w-3 h-3 text-amber-600" />
+            <Clock className="w-3 h-3 text-amber-600 shrink-0" />
             <span>Half Day</span>
           </div>
           <div className="text-xl font-extrabold text-amber-700 mt-1 tabular-nums">{stats.halfDay}</div>
           <div className="text-[10px] text-amber-600 font-medium">4 hrs recorded</div>
         </div>
-        <div className="bg-white p-4 rounded-xl border border-blue-200 bg-blue-50/20 shadow-xs">
+        <div className="bg-white p-4 rounded-xl border border-blue-200 bg-blue-50/20 shadow-xs flex flex-col justify-between h-full">
           <div className="text-blue-700 text-[11px] font-bold uppercase tracking-wider flex items-center space-x-1">
-            <Calendar className="w-3 h-3 text-blue-600" />
+            <Calendar className="w-3 h-3 text-blue-600 shrink-0" />
             <span>Leave</span>
           </div>
           <div className="text-xl font-extrabold text-blue-700 mt-1 tabular-nums">{stats.leave}</div>
           <div className="text-[10px] text-blue-600 font-medium">Approved leaves</div>
         </div>
-        <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-xs">
+        <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-xs flex flex-col justify-between h-full">
           <div className="text-slate-500 text-[11px] font-bold uppercase tracking-wider flex items-center space-x-1">
-            <Coffee className="w-3 h-3 text-slate-400" />
+            <Coffee className="w-3 h-3 text-slate-400 shrink-0" />
             <span>Holiday</span>
           </div>
           <div className="text-xl font-extrabold text-slate-700 mt-1 tabular-nums">{stats.holiday}</div>
@@ -456,23 +456,23 @@ export const AttendanceView: React.FC<AttendanceViewProps> = ({
           {/* Date Picker (for Daily view) */}
           {viewMode === 'daily' && (
             <div className="flex items-center space-x-2">
-              <label className="font-semibold text-slate-600">Date:</label>
+              <label className="font-semibold text-slate-600 whitespace-nowrap">Date:</label>
               <input
                 type="date"
                 value={selectedDate}
                 onChange={(e) => setSelectedDate(e.target.value)}
-                className="bg-[#FAF7F3] border border-slate-200 rounded-lg px-2.5 py-1.5 text-slate-800 font-medium focus:outline-none focus:border-burgundy-500"
+                className="bg-[#FAF7F3] border border-slate-200 rounded-lg px-2.5 py-2 text-slate-800 font-medium focus:outline-none focus:border-burgundy-500"
               />
             </div>
           )}
 
           {/* Branch Filter */}
           <div className="flex items-center space-x-2">
-            <label className="font-semibold text-slate-600">Campus:</label>
+            <label className="font-semibold text-slate-600 whitespace-nowrap">Campus:</label>
             <select
               value={selectedBranch}
               onChange={(e) => setSelectedBranch(e.target.value)}
-              className="bg-[#FAF7F3] border border-slate-200 rounded-lg px-2.5 py-1.5 text-slate-800 font-medium focus:outline-none focus:border-burgundy-500"
+              className="bg-[#FAF7F3] border border-slate-200 rounded-lg px-2.5 py-2 text-slate-800 font-medium focus:outline-none focus:border-burgundy-500"
             >
               <option value="all">All Campuses</option>
               {branches.map(b => (
@@ -483,11 +483,11 @@ export const AttendanceView: React.FC<AttendanceViewProps> = ({
 
           {/* Status Filter */}
           <div className="flex items-center space-x-2">
-            <label className="font-semibold text-slate-600">Status:</label>
+            <label className="font-semibold text-slate-600 whitespace-nowrap">Status:</label>
             <select
               value={selectedStatus}
               onChange={(e) => setSelectedStatus(e.target.value)}
-              className="bg-[#FAF7F3] border border-slate-200 rounded-lg px-2.5 py-1.5 text-slate-800 font-medium focus:outline-none focus:border-burgundy-500"
+              className="bg-[#FAF7F3] border border-slate-200 rounded-lg px-2.5 py-2 text-slate-800 font-medium focus:outline-none focus:border-burgundy-500"
             >
               <option value="all">All Statuses</option>
               <option value="Present">Present</option>
@@ -501,13 +501,13 @@ export const AttendanceView: React.FC<AttendanceViewProps> = ({
 
         {/* Search */}
         <div className="relative min-w-[220px]">
-          <Search className="w-3.5 h-3.5 absolute left-3 top-2.5 text-slate-400" />
+          <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
           <input
             type="text"
             placeholder="Search employee or ID..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-[#FAF7F3] border border-slate-200 rounded-lg pl-8 pr-3 py-1.5 text-slate-800 text-xs font-medium focus:outline-none focus:border-burgundy-500"
+            className="w-full bg-[#FAF7F3] border border-slate-200 rounded-lg pl-8 pr-3 py-2 text-slate-800 text-xs font-medium focus:outline-none focus:border-burgundy-500"
           />
         </div>
       </div>
@@ -648,15 +648,15 @@ export const AttendanceView: React.FC<AttendanceViewProps> = ({
             <table className="w-full text-center text-xs">
               <thead>
                 <tr className="bg-[#FAF7F3] border-b border-slate-200 text-slate-600 font-semibold text-[11px]">
-                  <th className="py-2.5 px-3 text-left w-48">Employee Name</th>
+                  <th className="py-2.5 px-3 text-left min-w-[170px] whitespace-nowrap">Employee Name</th>
                   {Array.from({ length: 15 }, (_, i) => i + 1).map(day => (
-                    <th key={day} className="py-2 px-1.5 font-mono text-[10px] w-8">
+                    <th key={day} className="py-2 px-1 font-mono text-[10px] w-8">
                       {day}
                     </th>
                   ))}
-                  <th className="py-2.5 px-2 text-right">Present</th>
-                  <th className="py-2.5 px-2 text-right">Absent</th>
-                  <th className="py-2.5 px-2 text-right">Payable Days</th>
+                  <th className="py-2.5 px-2.5 text-right whitespace-nowrap">Present</th>
+                  <th className="py-2.5 px-2.5 text-right whitespace-nowrap">Absent</th>
+                  <th className="py-2.5 px-3 text-right whitespace-nowrap">Payable Days</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
@@ -668,7 +668,7 @@ export const AttendanceView: React.FC<AttendanceViewProps> = ({
                   const payableDays = presentCount + (halfDayCount * 0.5) + (30 - 15); // simulated for current period
                   return (
                     <tr key={emp.employee_id} className="hover:bg-[#FAF7F3]/60">
-                      <td className="py-3 px-3 text-left">
+                      <td className="py-3 px-3 text-left whitespace-nowrap">
                         <div className="font-bold text-slate-900">{emp.employee_name}</div>
                         <div className="text-[10px] text-slate-400 font-mono">{emp.employee_code}</div>
                       </td>
@@ -690,15 +690,15 @@ export const AttendanceView: React.FC<AttendanceViewProps> = ({
                         }
                         return (
                           <td key={day} className="py-2 px-1">
-                            <span className={`inline-block w-6 h-6 leading-6 text-[10px] rounded-md ${badgeBg}`}>
+                            <span className={`inline-flex items-center justify-center w-6 h-6 text-[10px] rounded-md ${badgeBg}`}>
                               {char}
                             </span>
                           </td>
                         );
                       })}
-                      <td className="py-3 px-2 text-right font-bold text-emerald-700 tabular-nums">14</td>
-                      <td className="py-3 px-2 text-right font-bold text-rose-600 tabular-nums">{absentCount}</td>
-                      <td className="py-3 px-2 text-right font-extrabold text-slate-900 tabular-nums">{payableDays.toFixed(1)}</td>
+                      <td className="py-3 px-2.5 text-right font-bold text-emerald-700 tabular-nums whitespace-nowrap">14</td>
+                      <td className="py-3 px-2.5 text-right font-bold text-rose-600 tabular-nums whitespace-nowrap">{absentCount}</td>
+                      <td className="py-3 px-3 text-right font-extrabold text-slate-900 tabular-nums whitespace-nowrap">{payableDays.toFixed(1)}</td>
                     </tr>
                   );
                 })}

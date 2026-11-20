@@ -210,26 +210,26 @@ export const PayrollView: React.FC<PayrollViewProps> = ({
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 items-stretch">
             {employees.map(emp => (
-              <div key={emp.employee_id} className="p-4 rounded-xl border border-slate-200 bg-[#FAF7F3]/60 space-y-3">
-                <div className="flex justify-between items-start">
+              <div key={emp.employee_id} className="p-4 rounded-xl border border-slate-200 bg-[#FAF7F3]/60 flex flex-col justify-between space-y-3 h-full">
+                <div className="flex justify-between items-start gap-2">
                   <div>
                     <h4 className="font-bold text-slate-900 text-sm">{emp.employee_name}</h4>
                     <span className="font-mono text-burgundy-700 text-xs font-semibold">{emp.employee_code}</span>
                   </div>
-                  <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                  <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 whitespace-nowrap shrink-0">
                     Paid
                   </span>
                 </div>
                 <div className="text-xs space-y-1 text-slate-600 pt-2 border-t border-slate-200/60 font-medium">
-                  <div className="flex justify-between"><span>Month:</span> <strong className="text-slate-800">October 2026</strong></div>
-                  <div className="flex justify-between"><span>Net Salary:</span> <strong className="text-slate-900 font-bold tabular-nums">₹{(emp.gross_salary * 0.92).toLocaleString('en-IN')}</strong></div>
-                  <div className="flex justify-between"><span>Working Days:</span> <strong className="text-slate-800">30 / 30 Days</strong></div>
+                  <div className="flex justify-between gap-2"><span>Month:</span> <strong className="text-slate-800">October 2026</strong></div>
+                  <div className="flex justify-between gap-2"><span>Net Salary:</span> <strong className="text-slate-900 font-bold tabular-nums">₹{(emp.gross_salary * 0.92).toLocaleString('en-IN')}</strong></div>
+                  <div className="flex justify-between gap-2"><span>Working Days:</span> <strong className="text-slate-800 tabular-nums">30 / 30 Days</strong></div>
                 </div>
                 <button
                   onClick={() => alert(`Official Payslip generated for ${emp.employee_name} for October 2026.`)}
-                  className="w-full mt-2 py-1.5 text-xs font-semibold text-burgundy-700 hover:text-burgundy-900 hover:bg-burgundy-50 border border-burgundy-200 rounded-lg transition"
+                  className="w-full py-2 text-xs font-semibold text-burgundy-700 hover:text-burgundy-900 hover:bg-burgundy-50 border border-burgundy-200 rounded-lg transition whitespace-nowrap"
                 >
                   View / Print Slip
                 </button>

@@ -218,8 +218,8 @@ export const SuperadminView: React.FC<SuperadminViewProps> = ({
       {(activeTab === 'sa_dashboard' || activeTab === 'sa_platform_overview' || activeTab === 'sa_total_orgs' || activeTab === 'sa_total_branches' || activeTab === 'sa_active_subs' || activeTab === 'sa_feature_usage') && (
         <div className="space-y-6">
           {/* Top KPI Strip aligned to Organisation, Branch, Subscription & Platform Users menus */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div className="bg-white p-5 rounded-2xl border border-slate-200">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-stretch">
+            <div className="bg-white p-5 rounded-2xl border border-slate-200 flex flex-col justify-between h-full">
               <div className="text-slate-500 text-xs font-semibold">Organisations</div>
               <div className="text-2xl font-bold text-slate-900 mt-1 tabular-nums">{companies.length} Registered</div>
               <div className="text-xs text-slate-500 mt-1 font-medium">Multi-entity trusts active</div>
@@ -227,7 +227,7 @@ export const SuperadminView: React.FC<SuperadminViewProps> = ({
             <button
               type="button"
               onClick={() => navigateTo('sa_branch_mgmt')}
-              className="text-left bg-white p-5 rounded-2xl border border-slate-200 hover:border-burgundy-300 transition-colors"
+              className="text-left bg-white p-5 rounded-2xl border border-slate-200 hover:border-burgundy-300 transition-colors flex flex-col justify-between h-full"
             >
               <div className="text-slate-500 text-xs font-semibold">Campus Branches</div>
               <div className="text-2xl font-bold text-slate-900 mt-1 tabular-nums">{branches.length} Active</div>
@@ -236,7 +236,7 @@ export const SuperadminView: React.FC<SuperadminViewProps> = ({
             <button
               type="button"
               onClick={() => navigateTo('sa_subscription_mgmt')}
-              className="text-left bg-white p-5 rounded-2xl border border-slate-200 hover:border-burgundy-300 transition-colors"
+              className="text-left bg-white p-5 rounded-2xl border border-slate-200 hover:border-burgundy-300 transition-colors flex flex-col justify-between h-full"
             >
               <div className="text-slate-500 text-xs font-semibold">Subscription Billing</div>
               <div className="text-2xl font-bold text-slate-900 mt-1 tabular-nums">
@@ -247,7 +247,7 @@ export const SuperadminView: React.FC<SuperadminViewProps> = ({
             <button
               type="button"
               onClick={() => navigateTo('sa_platform_users')}
-              className="text-left bg-white p-5 rounded-2xl border border-slate-200 hover:border-burgundy-300 transition-colors"
+              className="text-left bg-white p-5 rounded-2xl border border-slate-200 hover:border-burgundy-300 transition-colors flex flex-col justify-between h-full"
             >
               <div className="text-slate-500 text-xs font-semibold">Platform Users</div>
               <div className="text-2xl font-bold text-slate-900 mt-1 tabular-nums">{platformUsers.length} Accounts</div>
@@ -351,29 +351,29 @@ export const SuperadminView: React.FC<SuperadminViewProps> = ({
       {/* 2. ORGANISATION MANAGEMENT */}
       {(activeTab === 'sa_org_mgmt' || activeTab.startsWith('sa_org_') || activeTab === 'sa_create_org') && (
         <div className="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-xs space-y-6">
-          <div className="flex justify-between items-center">
+          <div className="flex flex-wrap justify-between items-center gap-3">
             <div>
               <h3 className="font-bold text-slate-900 text-base">Registered Legal Educational Organisations</h3>
               <p className="text-xs text-slate-500 font-medium">Independent trust companies with separate books of accounts</p>
             </div>
             <button
               onClick={() => setShowCompanyModal(true)}
-              className="px-3.5 py-2 bg-[#8B3552] hover:bg-[#722B43] text-white font-bold rounded-xl text-xs flex items-center space-x-1.5"
+              className="px-3.5 py-2 bg-[#8B3552] hover:bg-[#722B43] text-white font-bold rounded-xl text-xs flex items-center space-x-1.5 whitespace-nowrap shrink-0"
             >
-              <Plus className="w-3.5 h-3.5" />
+              <Plus className="w-3.5 h-3.5 shrink-0" />
               <span>New Organisation</span>
             </button>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {companies.map(c => (
-              <div key={c.company_id} className="p-5 rounded-xl bg-[#FAF7F3] border border-slate-200 space-y-3">
-                <div className="flex justify-between items-start">
-                  <div>
+              <div key={c.company_id} className="p-5 rounded-xl bg-[#FAF7F3] border border-slate-200 space-y-3 flex flex-col justify-between h-full">
+                <div className="flex justify-between items-start gap-3">
+                  <div className="min-w-0">
                     <h4 className="font-bold text-slate-900 text-base">{c.display_name}</h4>
                     <p className="text-xs text-slate-500">{c.legal_name}</p>
                   </div>
-                  <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                  <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 whitespace-nowrap shrink-0">
                     {c.company_status}
                   </span>
                 </div>
@@ -381,7 +381,7 @@ export const SuperadminView: React.FC<SuperadminViewProps> = ({
                   <div>Entity Type: <strong className="text-slate-900">{c.entity_type}</strong></div>
                   <div>Code: <strong className="text-burgundy-700 font-mono">{c.company_code}</strong></div>
                   <div>Currency: <strong className="text-slate-900">{c.base_currency}</strong></div>
-                  <div>Books From: <strong className="text-slate-900">{c.books_beginning_date}</strong></div>
+                  <div>Books From: <strong className="text-slate-900 tabular-nums">{c.books_beginning_date}</strong></div>
                 </div>
               </div>
             ))}
@@ -392,16 +392,16 @@ export const SuperadminView: React.FC<SuperadminViewProps> = ({
       {/* 3. BRANCH MANAGEMENT */}
       {(activeTab === 'sa_branch_mgmt' || (activeTab.startsWith('sa_branch_') && activeTab !== 'sa_branch_admin_mgmt') || activeTab === 'sa_create_branch' || activeTab === 'sa_assign_branch_admin') && (
         <div className="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-xs space-y-6">
-          <div className="flex justify-between items-center">
+          <div className="flex flex-wrap justify-between items-center gap-3">
             <div>
               <h3 className="font-bold text-slate-900 text-base">Campus Locations & Branch Administration</h3>
               <p className="text-xs text-slate-500 font-medium">Operating campuses mapped to independent balance sheets</p>
             </div>
             <button
               onClick={() => setShowBranchModal(true)}
-              className="px-3.5 py-2 bg-[#8B3552] hover:bg-[#722B43] text-white font-bold rounded-xl text-xs flex items-center space-x-1.5"
+              className="px-3.5 py-2 bg-[#8B3552] hover:bg-[#722B43] text-white font-bold rounded-xl text-xs flex items-center space-x-1.5 whitespace-nowrap shrink-0"
             >
-              <Plus className="w-3.5 h-3.5" />
+              <Plus className="w-3.5 h-3.5 shrink-0" />
               <span>New Campus</span>
             </button>
           </div>
@@ -486,8 +486,8 @@ export const SuperadminView: React.FC<SuperadminViewProps> = ({
         return (
           <div className="space-y-6">
             {/* Historical Summary Metrics */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              <div className="bg-white p-5 rounded-2xl border border-slate-200">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 items-stretch">
+              <div className="bg-white p-5 rounded-2xl border border-slate-200 flex flex-col justify-between h-full">
                 <div className="text-slate-500 text-xs font-semibold">Cumulative Subscription Revenue</div>
                 <div className="text-2xl font-bold text-slate-900 mt-1 tabular-nums">
                   ₹{totalHistoricalBilled.toLocaleString('en-IN')}
@@ -496,12 +496,12 @@ export const SuperadminView: React.FC<SuperadminViewProps> = ({
                   Across {filteredHistory.length} billing records
                 </div>
               </div>
-              <div className="bg-white p-5 rounded-2xl border border-slate-200">
+              <div className="bg-white p-5 rounded-2xl border border-slate-200 flex flex-col justify-between h-full">
                 <div className="text-slate-500 text-xs font-semibold">Renewals & Plan Upgrades</div>
                 <div className="text-2xl font-bold text-slate-900 mt-1 tabular-nums">{renewalsAndUpgrades} Events</div>
                 <div className="text-xs text-emerald-700 font-semibold mt-1">100% On-Time Retention</div>
               </div>
-              <div className="bg-white p-5 rounded-2xl border border-slate-200">
+              <div className="bg-white p-5 rounded-2xl border border-slate-200 flex flex-col justify-between h-full">
                 <div className="text-slate-500 text-xs font-semibold">Next Scheduled Renewal</div>
                 <div className="text-2xl font-bold text-[#8B3552] mt-1 tabular-nums">2026-12-31</div>
                 <div className="text-xs text-slate-500 mt-1">Delhi Public School Foundation (Quarterly)</div>
@@ -523,29 +523,29 @@ export const SuperadminView: React.FC<SuperadminViewProps> = ({
                   onClick={handleExportHistoryCsv}
                   className="px-3.5 py-2 bg-[#8B3552] hover:bg-[#722B43] text-white font-semibold rounded-xl text-xs flex items-center space-x-1.5 whitespace-nowrap shrink-0 transition-colors"
                 >
-                  <Download className="w-3.5 h-3.5" />
+                  <Download className="w-3.5 h-3.5 shrink-0" />
                   <span>Export CSV</span>
                 </button>
               </div>
 
               {/* Search & Filter Toolbar */}
               <div className="flex flex-wrap items-center justify-between gap-3 pt-1">
-                <div className="flex flex-wrap items-center gap-2 flex-1 min-w-[260px]">
+                <div className="flex flex-wrap items-center gap-2.5 flex-1 min-w-[260px]">
                   <div className="relative flex-1 min-w-[210px] max-w-sm">
-                    <Search className="w-3.5 h-3.5 absolute left-3 top-2.5 text-slate-400" />
+                    <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
                     <input
                       type="text"
                       value={subHistorySearch}
                       onChange={(e) => setSubHistorySearch(e.target.value)}
                       placeholder="Search invoice #, organisation, or ref..."
-                      className="w-full bg-[#FAF7F3] border border-slate-200 rounded-xl pl-8 pr-3 py-1.5 text-xs text-slate-900 font-medium focus:outline-none focus:border-[#8B3552]"
+                      className="w-full bg-[#FAF7F3] border border-slate-200 rounded-xl pl-8 pr-3 py-2 text-xs text-slate-900 font-medium focus:outline-none focus:border-[#8B3552]"
                     />
                   </div>
                   <select
                     aria-label="Filter by Organisation"
                     value={subHistoryOrgFilter}
                     onChange={(e) => setSubHistoryOrgFilter(e.target.value)}
-                    className="bg-[#FAF7F3] border border-slate-200 rounded-xl px-3 py-1.5 text-xs font-semibold text-slate-700 focus:outline-none focus:border-[#8B3552]"
+                    className="bg-[#FAF7F3] border border-slate-200 rounded-xl px-3 py-2 text-xs font-semibold text-slate-700 focus:outline-none focus:border-[#8B3552]"
                   >
                     <option value="all">All Organisations</option>
                     {uniqueOrgs.map(org => (
@@ -554,13 +554,13 @@ export const SuperadminView: React.FC<SuperadminViewProps> = ({
                   </select>
                 </div>
 
-                <div className="flex flex-wrap items-center gap-1 p-1 bg-[#FAF7F3] border border-slate-200 rounded-lg text-xs">
+                <div className="flex flex-wrap items-center gap-1 p-1 bg-[#FAF7F3] border border-slate-200 rounded-xl text-xs">
                   {['all', 'Renewal', 'Plan Upgrade', 'Quarterly Billing', 'New Subscription'].map(evt => (
                     <button
                       key={evt}
                       type="button"
                       onClick={() => setSubHistoryEventFilter(evt)}
-                      className={`px-2.5 py-1 rounded-md font-semibold transition-colors whitespace-nowrap ${
+                      className={`px-2.5 py-1 rounded-lg font-semibold transition-colors whitespace-nowrap ${
                         subHistoryEventFilter === evt
                           ? 'bg-[#8B3552] text-white'
                           : 'text-slate-600 hover:text-slate-900'
@@ -744,16 +744,16 @@ export const SuperadminView: React.FC<SuperadminViewProps> = ({
                         {u.status}
                       </span>
                     </td>
-                    <td className="py-3.5 text-right">
+                      <td className="py-3.5 text-right whitespace-nowrap">
                       <button
                         onClick={() => handleToggleLockUser(u.id)}
-                        className={`px-3 py-1 rounded-lg text-xs font-semibold transition inline-flex items-center space-x-1 ${
+                        className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition inline-flex items-center space-x-1.5 whitespace-nowrap ${
                           u.status === 'Locked'
                             ? 'bg-emerald-50 text-emerald-700 border border-emerald-200 hover:bg-emerald-100'
                             : 'bg-rose-50 text-rose-700 border border-rose-200 hover:bg-rose-100'
                         }`}
                       >
-                        {u.status === 'Locked' ? <Unlock className="w-3 h-3" /> : <Lock className="w-3 h-3" />}
+                        {u.status === 'Locked' ? <Unlock className="w-3 h-3 shrink-0" /> : <Lock className="w-3 h-3 shrink-0" />}
                         <span>{u.status === 'Locked' ? 'Unlock Account' : 'Lock Account'}</span>
                       </button>
                     </td>
@@ -768,34 +768,34 @@ export const SuperadminView: React.FC<SuperadminViewProps> = ({
       {/* 7. REPORTS & ANALYTICS */}
       {(activeTab === 'sa_reports_analytics' || activeTab.startsWith('sa_org_reports') || activeTab === 'sa_branch_reports' || activeTab === 'sa_sub_reports' || activeTab === 'sa_usage_reports') && (
         <div className="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-xs space-y-6">
-          <div className="flex justify-between items-center">
+          <div className="flex flex-wrap justify-between items-center gap-3">
             <div>
               <h3 className="font-bold text-slate-900 text-base">Platform Analytics & Global Consolidated Reports</h3>
               <p className="text-xs text-slate-500 font-medium">Cross-campus enrollment, fee liquidity, and cloud infrastructure usage</p>
             </div>
             <button
               onClick={() => alert('Platform Analytics Report exported as XLSX.')}
-              className="px-3.5 py-2 bg-[#8B3552] hover:bg-[#722B43] text-white font-bold rounded-xl text-xs flex items-center space-x-1.5 shadow-xs"
+              className="px-3.5 py-2 bg-[#8B3552] hover:bg-[#722B43] text-white font-bold rounded-xl text-xs flex items-center space-x-1.5 shadow-xs whitespace-nowrap shrink-0"
             >
-              <Download className="w-3.5 h-3.5" />
+              <Download className="w-3.5 h-3.5 shrink-0" />
               <span>Export Analytics</span>
             </button>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="p-5 rounded-xl bg-[#FAF7F3] border border-slate-200 space-y-2">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-stretch">
+            <div className="p-5 rounded-xl bg-[#FAF7F3] border border-slate-200 space-y-2 flex flex-col justify-between h-full">
               <div className="text-slate-400 text-xs font-bold uppercase">Total Consolidated Collections</div>
-              <div className="text-2xl font-bold text-slate-900">₹2.48 Crore</div>
+              <div className="text-2xl font-bold text-slate-900 tabular-nums">₹2.48 Crore</div>
               <p className="text-[11px] text-slate-500">Across Chennai, Coimbatore & Bengaluru campuses</p>
             </div>
-            <div className="p-5 rounded-xl bg-[#FAF7F3] border border-slate-200 space-y-2">
+            <div className="p-5 rounded-xl bg-[#FAF7F3] border border-slate-200 space-y-2 flex flex-col justify-between h-full">
               <div className="text-slate-400 text-xs font-bold uppercase">Total Faculty On Roster</div>
-              <div className="text-2xl font-bold text-slate-900">184 Employees</div>
+              <div className="text-2xl font-bold text-slate-900 tabular-nums">184 Employees</div>
               <p className="text-[11px] text-slate-500">97.8% Average biometric attendance rate</p>
             </div>
-            <div className="p-5 rounded-xl bg-[#FAF7F3] border border-slate-200 space-y-2">
+            <div className="p-5 rounded-xl bg-[#FAF7F3] border border-slate-200 space-y-2 flex flex-col justify-between h-full">
               <div className="text-slate-400 text-xs font-bold uppercase">Multi-Tenant Database Size</div>
-              <div className="text-2xl font-bold text-slate-900">4.2 GB / 50 GB</div>
+              <div className="text-2xl font-bold text-slate-900 tabular-nums">4.2 GB / 50 GB</div>
               <p className="text-[11px] text-emerald-700 font-bold">Automated daily backup synced</p>
             </div>
           </div>
@@ -841,20 +841,20 @@ export const SuperadminView: React.FC<SuperadminViewProps> = ({
             <p className="text-xs text-slate-500 font-medium">Session timeouts, multi-factor authentication, and notification relays</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs">
-            <div className="p-5 bg-[#FAF7F3] rounded-xl border border-slate-200 space-y-3">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs items-stretch">
+            <div className="p-5 bg-[#FAF7F3] rounded-xl border border-slate-200 flex flex-col justify-between space-y-3 h-full">
               <div className="flex items-center space-x-2 font-bold text-slate-900 text-sm">
-                <Settings className="w-4 h-4 text-burgundy-600" />
+                <Settings className="w-4 h-4 text-burgundy-600 shrink-0" />
                 <span>General Engine Settings</span>
               </div>
-              <div className="space-y-2">
+              <div className="space-y-3">
                 <div>
                   <label className="block text-slate-600 font-semibold mb-1">Platform Name</label>
                   <input
                     type="text"
                     value={platformSettings.systemName}
                     onChange={e => setPlatformSettings({ ...platformSettings, systemName: e.target.value })}
-                    className="w-full bg-white border border-slate-200 rounded-lg p-2 font-medium"
+                    className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 font-medium"
                   />
                 </div>
                 <div>
@@ -863,21 +863,21 @@ export const SuperadminView: React.FC<SuperadminViewProps> = ({
                     type="number"
                     value={platformSettings.sessionTimeoutMins}
                     onChange={e => setPlatformSettings({ ...platformSettings, sessionTimeoutMins: Number(e.target.value) })}
-                    className="w-full bg-white border border-slate-200 rounded-lg p-2 font-medium"
+                    className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 font-medium tabular-nums"
                   />
                 </div>
               </div>
             </div>
 
-            <div className="p-5 bg-[#FAF7F3] rounded-xl border border-slate-200 space-y-3">
+            <div className="p-5 bg-[#FAF7F3] rounded-xl border border-slate-200 flex flex-col justify-between space-y-3 h-full">
               <div className="flex items-center space-x-2 font-bold text-slate-900 text-sm">
-                <ShieldCheck className="w-4 h-4 text-burgundy-600" />
+                <ShieldCheck className="w-4 h-4 text-burgundy-600 shrink-0" />
                 <span>Security & Access Control</span>
               </div>
-              <div className="space-y-2">
-                <div className="flex items-center justify-between p-2 bg-white rounded-lg border border-slate-200">
+              <div className="space-y-3">
+                <div className="flex items-center justify-between px-3 py-2 bg-white rounded-lg border border-slate-200">
                   <span className="font-semibold text-slate-700">Enforce MFA for Administrators</span>
-                  <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">Active</span>
+                  <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 whitespace-nowrap">Active</span>
                 </div>
                 <div>
                   <label className="block text-slate-600 font-semibold mb-1">IP Allowlist CIDRs</label>
@@ -885,7 +885,7 @@ export const SuperadminView: React.FC<SuperadminViewProps> = ({
                     type="text"
                     value={platformSettings.ipAllowlist}
                     onChange={e => setPlatformSettings({ ...platformSettings, ipAllowlist: e.target.value })}
-                    className="w-full bg-white border border-slate-200 rounded-lg p-2 font-mono text-[11px]"
+                    className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 font-mono text-[11px]"
                   />
                 </div>
               </div>

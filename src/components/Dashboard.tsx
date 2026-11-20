@@ -253,24 +253,24 @@ export const Dashboard: React.FC<DashboardProps> = ({
   return (
     <div className="p-6 sm:p-8 space-y-6 max-w-7xl mx-auto">
       {/* 1. TOP KPI STRIP — Live Figures from Student Finance, Banking, Payroll & Budgets */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-stretch">
         <button
           type="button"
           onClick={() => canAccess('sf_invoices') && onNavigate('sf_invoices')}
-          className="text-left bg-white p-5 rounded-2xl border border-slate-200 hover:border-burgundy-300 transition-colors flex flex-col justify-between group"
+          className="text-left bg-white p-5 rounded-2xl border border-slate-200 hover:border-burgundy-300 transition-colors flex flex-col justify-between h-full group"
         >
-          <div className="flex items-center justify-between w-full">
+          <div className="flex items-center justify-between w-full gap-2">
             <span className="text-slate-500 text-xs font-semibold">Student Fee Invoiced</span>
-            <TrendingUp className="w-4 h-4 text-[#8B3552]" />
+            <TrendingUp className="w-4 h-4 text-[#8B3552] shrink-0" />
           </div>
-          <div className="mt-3">
+          <div className="mt-3 w-full">
             <div className="text-2xl font-bold text-slate-900 tracking-tight tabular-nums">
               ₹{studentFinanceMetrics.totalBilled.toLocaleString('en-IN')}
             </div>
-            <div className="flex items-center justify-between text-xs mt-1.5 text-slate-500 tabular-nums">
-              <span>Collected: ₹{studentFinanceMetrics.totalCollected.toLocaleString('en-IN')}</span>
+            <div className="flex items-center justify-between gap-2 text-xs mt-1.5 text-slate-500 tabular-nums">
+              <span className="truncate">Collected: ₹{studentFinanceMetrics.totalCollected.toLocaleString('en-IN')}</span>
               {canAccess('sf_invoices') && (
-                <span className="text-[#8B3552] font-semibold group-hover:underline flex items-center gap-0.5">
+                <span className="text-[#8B3552] font-semibold group-hover:underline flex items-center gap-0.5 whitespace-nowrap shrink-0">
                   Student Finance <ArrowUpRight className="w-3 h-3" />
                 </span>
               )}
@@ -281,20 +281,20 @@ export const Dashboard: React.FC<DashboardProps> = ({
         <button
           type="button"
           onClick={() => canAccess('bnk_reconciliation') && onNavigate('bnk_reconciliation')}
-          className="text-left bg-white p-5 rounded-2xl border border-slate-200 hover:border-burgundy-300 transition-colors flex flex-col justify-between group"
+          className="text-left bg-white p-5 rounded-2xl border border-slate-200 hover:border-burgundy-300 transition-colors flex flex-col justify-between h-full group"
         >
-          <div className="flex items-center justify-between w-full">
+          <div className="flex items-center justify-between w-full gap-2">
             <span className="text-slate-500 text-xs font-semibold">Bank Book Balance</span>
-            <Landmark className="w-4 h-4 text-[#C5A572]" />
+            <Landmark className="w-4 h-4 text-[#C5A572] shrink-0" />
           </div>
-          <div className="mt-3">
+          <div className="mt-3 w-full">
             <div className="text-2xl font-bold text-slate-900 tracking-tight tabular-nums">
               ₹{(bankMetrics.totalBalance / 100000).toFixed(2)} L
             </div>
-            <div className="flex items-center justify-between text-xs mt-1.5 text-slate-500 tabular-nums">
-              <span>{bankMetrics.count} Bank Accounts</span>
+            <div className="flex items-center justify-between gap-2 text-xs mt-1.5 text-slate-500 tabular-nums">
+              <span className="truncate">{bankMetrics.count} Bank Accounts</span>
               {canAccess('bnk_reconciliation') && (
-                <span className="text-[#8B3552] font-semibold group-hover:underline flex items-center gap-0.5">
+                <span className="text-[#8B3552] font-semibold group-hover:underline flex items-center gap-0.5 whitespace-nowrap shrink-0">
                   Banking <ArrowUpRight className="w-3 h-3" />
                 </span>
               )}
@@ -305,20 +305,20 @@ export const Dashboard: React.FC<DashboardProps> = ({
         <button
           type="button"
           onClick={() => canAccess('pay_runs') && onNavigate('pay_runs')}
-          className="text-left bg-white p-5 rounded-2xl border border-slate-200 hover:border-burgundy-300 transition-colors flex flex-col justify-between group"
+          className="text-left bg-white p-5 rounded-2xl border border-slate-200 hover:border-burgundy-300 transition-colors flex flex-col justify-between h-full group"
         >
-          <div className="flex items-center justify-between w-full">
+          <div className="flex items-center justify-between w-full gap-2">
             <span className="text-slate-500 text-xs font-semibold">Payroll & Attendance</span>
-            <Wallet className="w-4 h-4 text-[#8B3552]" />
+            <Wallet className="w-4 h-4 text-[#8B3552] shrink-0" />
           </div>
-          <div className="mt-3">
+          <div className="mt-3 w-full">
             <div className="text-2xl font-bold text-slate-900 tracking-tight tabular-nums">
               ₹{payrollMetrics.latestNetPay.toLocaleString('en-IN')}
             </div>
-            <div className="flex items-center justify-between text-xs mt-1.5 text-slate-500 tabular-nums">
-              <span>{attendanceBreakdown.counts.Present}/{attendanceBreakdown.total} Present</span>
+            <div className="flex items-center justify-between gap-2 text-xs mt-1.5 text-slate-500 tabular-nums">
+              <span className="truncate">{attendanceBreakdown.counts.Present}/{attendanceBreakdown.total} Present</span>
               {canAccess('pay_runs') && (
-                <span className="text-[#8B3552] font-semibold group-hover:underline flex items-center gap-0.5">
+                <span className="text-[#8B3552] font-semibold group-hover:underline flex items-center gap-0.5 whitespace-nowrap shrink-0">
                   Payroll <ArrowUpRight className="w-3 h-3" />
                 </span>
               )}
@@ -329,20 +329,20 @@ export const Dashboard: React.FC<DashboardProps> = ({
         <button
           type="button"
           onClick={() => canAccess('budgets_funds') && onNavigate('budgets_funds')}
-          className="text-left bg-white p-5 rounded-2xl border border-slate-200 hover:border-burgundy-300 transition-colors flex flex-col justify-between group"
+          className="text-left bg-white p-5 rounded-2xl border border-slate-200 hover:border-burgundy-300 transition-colors flex flex-col justify-between h-full group"
         >
-          <div className="flex items-center justify-between w-full">
+          <div className="flex items-center justify-between w-full gap-2">
             <span className="text-slate-500 text-xs font-semibold">Budgets Utilization</span>
-            <Coins className="w-4 h-4 text-[#C5A572]" />
+            <Coins className="w-4 h-4 text-[#C5A572] shrink-0" />
           </div>
-          <div className="mt-3">
+          <div className="mt-3 w-full">
             <div className="text-2xl font-bold text-slate-900 tracking-tight tabular-nums">
               {budgetMetrics.pct}% Utilized
             </div>
-            <div className="flex items-center justify-between text-xs mt-1.5 text-slate-500 tabular-nums">
-              <span>₹{(budgetMetrics.spent / 100000).toFixed(1)}L / ₹{(budgetMetrics.allocated / 100000).toFixed(1)}L</span>
+            <div className="flex items-center justify-between gap-2 text-xs mt-1.5 text-slate-500 tabular-nums">
+              <span className="truncate">₹{(budgetMetrics.spent / 100000).toFixed(1)}L / ₹{(budgetMetrics.allocated / 100000).toFixed(1)}L</span>
               {canAccess('budgets_funds') && (
-                <span className="text-[#8B3552] font-semibold group-hover:underline flex items-center gap-0.5">
+                <span className="text-[#8B3552] font-semibold group-hover:underline flex items-center gap-0.5 whitespace-nowrap shrink-0">
                   Budgets <ArrowUpRight className="w-3 h-3" />
                 </span>
               )}
@@ -566,9 +566,9 @@ export const Dashboard: React.FC<DashboardProps> = ({
       </div>
 
       {/* 3. OPERATIONAL MODULES ROW: Budgets & Funds · Payroll & Attendance · Banking, Procurement, Tax & Assets */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
         {/* Card A: Budgets & Funds */}
-        <div className="bg-white rounded-2xl border border-slate-200 p-6 flex flex-col justify-between space-y-4">
+        <div className="bg-white rounded-2xl border border-slate-200 p-6 flex flex-col justify-between h-full space-y-4">
           <div className="flex items-start justify-between gap-2">
             <div>
               <h3 className="font-bold text-slate-900 text-base">Budgets & Funds</h3>
@@ -610,7 +610,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
         </div>
 
         {/* Card B: Payroll & Attendance */}
-        <div className="bg-white rounded-2xl border border-slate-200 p-6 flex flex-col justify-between space-y-4">
+        <div className="bg-white rounded-2xl border border-slate-200 p-6 flex flex-col justify-between h-full space-y-4">
           <div className="flex items-start justify-between gap-2">
             <div>
               <h3 className="font-bold text-slate-900 text-base">Payroll & Attendance</h3>
@@ -676,7 +676,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
         </div>
 
         {/* Card C: Banking, Procurement, Tax & Fixed Assets Summary */}
-        <div className="bg-white rounded-2xl border border-slate-200 p-6 flex flex-col justify-between space-y-4">
+        <div className="bg-white rounded-2xl border border-slate-200 p-6 flex flex-col justify-between h-full space-y-4">
           <div>
             <h3 className="font-bold text-slate-900 text-base">Module Summary</h3>
             <p className="text-xs text-slate-500 mt-0.5">Live balances across Banking, Procurement, Tax & Assets</p>
@@ -761,9 +761,9 @@ export const Dashboard: React.FC<DashboardProps> = ({
       </div>
 
       {/* 4. BOTTOM ACTIVITY & APPROVALS ROW */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
         {/* Accounting Vouchers & Audit Logs Switcher */}
-        <div className="lg:col-span-2 bg-white rounded-2xl border border-slate-200 p-6 space-y-4">
+        <div className="lg:col-span-2 bg-white rounded-2xl border border-slate-200 p-6 h-full space-y-4">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div className="flex items-center gap-1 p-1 bg-[#FAF7F3] border border-slate-200 rounded-lg">
               <button
@@ -858,7 +858,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
         </div>
 
         {/* Pending Approvals (Linked to Approvals Menu) */}
-        <div className="bg-white rounded-2xl border border-slate-200 p-6 flex flex-col justify-between space-y-3.5">
+        <div className="bg-white rounded-2xl border border-slate-200 p-6 flex flex-col justify-between h-full space-y-3.5">
           <div className="flex items-center justify-between">
             <div>
               <h3 className="font-bold text-slate-900 text-base">Approvals</h3>
