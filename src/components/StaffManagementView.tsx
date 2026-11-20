@@ -99,7 +99,7 @@ export const StaffManagementView: React.FC<StaffManagementViewProps> = ({
   const [selectedUserForOverride, setSelectedUserForOverride] = useState<UserProfile>(
     users.find(u => u.role_id === 'Staff') || users[0]
   );
-  const [overrideSubmenuId, setOverrideSubmenuId] = useState<string>('pay_main');
+  const [overrideSubmenuId, setOverrideSubmenuId] = useState<string>('pay_attendance');
   const [overrideActionType, setOverrideActionType] = useState<'grant' | 'deny'>('grant');
 
   // Filter staff list
@@ -286,17 +286,6 @@ export const StaffManagementView: React.FC<StaffManagementViewProps> = ({
 
   const sectionControls = (
     <div className="flex flex-wrap items-center gap-2 shrink-0">
-      <select
-        aria-label="Staff Management Section"
-        value={activeMainTab}
-        onChange={(e) => setActiveMainTab(e.target.value as 'staff' | 'roles' | 'matrix' | 'overrides')}
-        className="bg-white border border-burgundy-200 rounded-xl px-3.5 py-2 text-xs font-bold text-burgundy-900 focus:outline-none focus:border-[#8B3552] cursor-pointer shadow-xs"
-      >
-        <option value="staff">Staff Directory ({users.filter(u => u.role_id === 'Staff').length})</option>
-        <option value="roles">Role Templates & Custom Roles ({roles.length})</option>
-        <option value="matrix">Permission Catalogue Matrix</option>
-        <option value="overrides">User-Specific Overrides</option>
-      </select>
       <button
         onClick={handleOpenCreateModal}
         className="px-3.5 py-2 bg-[#8B3552] hover:bg-[#722B43] text-white font-bold rounded-xl text-xs shadow-xs transition flex items-center space-x-1.5 whitespace-nowrap shrink-0"
@@ -309,7 +298,7 @@ export const StaffManagementView: React.FC<StaffManagementViewProps> = ({
           setIsEditingRole(false);
           setModalRoleName('Custom Staff Specialist');
           setModalRoleDesc('Tailored permission set for campus operations');
-          setModalAllowedSubmenus(['dash_main', 'pay_main']);
+          setModalAllowedSubmenus(['dashboard', 'pay_attendance']);
           setModalScope('assigned_branches');
           setShowRoleModal(true);
         }}
@@ -698,7 +687,7 @@ export const StaffManagementView: React.FC<StaffManagementViewProps> = ({
                       )}
                       <td className="py-3.5 px-4 font-semibold text-slate-800">
                         {sub.title}
-                        {sub.id === 'pay_main' && (
+                        {sub.id === 'pay_attendance' && (
                           <span className="ml-1.5 px-1.5 py-0.5 rounded text-[10px] font-bold bg-burgundy-100 text-burgundy-800">Attendance Integrated</span>
                         )}
                       </td>
@@ -783,11 +772,11 @@ export const StaffManagementView: React.FC<StaffManagementViewProps> = ({
                     onChange={(e) => setOverrideSubmenuId(e.target.value)}
                     className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 font-medium"
                   >
-                    <option value="pay_main">Payroll & Attendance</option>
-                    <option value="acc_main">Accounting & Vouchers</option>
-                    <option value="sf_main">Student Finance & Fees</option>
-                    <option value="prc_main">Procurement & Payables</option>
-                    <option value="tax_main">Tax & Compliance</option>
+                    <option value="pay_attendance">Payroll → Daily Attendance</option>
+                    <option value="acc_vouchers">Accounting → Vouchers</option>
+                    <option value="sf_refunds">Student Finance → Refunds</option>
+                    <option value="prc_payments">Procurement → Payments</option>
+                    <option value="tax_rules">Tax & Compliance → Rules</option>
                   </select>
                 </div>
 

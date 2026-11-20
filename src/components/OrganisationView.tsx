@@ -18,32 +18,25 @@ interface OrganisationViewProps {
   companies: Company[];
   branches: Branch[];
   users: UserProfile[];
+  initialTab?: 'companies' | 'branches' | 'fy' | 'gst' | 'users';
 }
 
 export const OrganisationView: React.FC<OrganisationViewProps> = ({
   companies,
   branches,
-  users
+  users,
+  initialTab = 'companies'
 }) => {
-  const [activeTab, setActiveTab] = useState<'companies' | 'branches' | 'fy' | 'gst' | 'users'>('companies');
+  const [activeTab, setActiveTab] = useState<'companies' | 'branches' | 'fy' | 'gst' | 'users'>(initialTab);
+  React.useEffect(() => {
+    if (initialTab) setActiveTab(initialTab);
+  }, [initialTab]);
   const [financialYears, setFinancialYears] = useState<FinancialYear[]>(MOCK_FINANCIAL_YEARS);
   const [showAddModal, setShowAddModal] = useState(false);
   const [inspectItem, setInspectItem] = useState<{ title: string; type: string; data: any } | null>(null);
 
   const sectionControls = (
     <div className="flex flex-wrap items-center gap-2.5 shrink-0">
-      <select
-        aria-label="Organisation Section"
-        value={activeTab}
-        onChange={(e) => setActiveTab(e.target.value as 'companies' | 'branches' | 'fy' | 'gst' | 'users')}
-        className="bg-[#FAF7F3] border border-burgundy-200 rounded-xl px-3.5 py-2 text-xs font-bold text-burgundy-900 focus:outline-none focus:border-[#8B3552] cursor-pointer"
-      >
-        <option value="companies">Legal Companies ({companies.length})</option>
-        <option value="branches">Campuses & Branches ({branches.length})</option>
-        <option value="fy">Financial Year & Books Closing</option>
-        <option value="gst">GST Registrations</option>
-        <option value="users">Campus Administrators ({users.length})</option>
-      </select>
       <button
         onClick={() => setShowAddModal(true)}
         className="px-4 py-2 bg-[#8B3552] hover:bg-[#722B43] text-white font-semibold rounded-xl text-xs shadow-xs transition flex items-center space-x-2 whitespace-nowrap shrink-0"

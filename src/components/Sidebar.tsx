@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   LayoutDashboard, 
   Building, 
@@ -97,13 +97,16 @@ export const Sidebar: React.FC<SidebarProps> = ({
     activeStaffUser?.user_overrides
   );
 
-  const [expandedMenus, setExpandedMenus] = useState<Record<string, boolean>>({
-    dashboard: true,
-    accounting_setup: true,
-    student_finance: true,
-    payroll: true,
-    staff_management: true
-  });
+  const [expandedMenus, setExpandedMenus] = useState<Record<string, boolean>>({});
+
+  useEffect(() => {
+    const activeParent = effectiveMenus.find(
+      m => m.id === currentTab || m.submenus.some(s => s.id === currentTab)
+    );
+    if (activeParent && activeParent.id !== 'dashboard_menu' && activeParent.id !== 'sa_dashboard_menu') {
+      setExpandedMenus(prev => (prev[activeParent.id] ? prev : { ...prev, [activeParent.id]: true }));
+    }
+  }, [currentTab, currentRole]);
 
   const toggleMenuExpand = (menuId: string) => {
     setExpandedMenus(prev => ({ ...prev, [menuId]: !prev[menuId] }));
@@ -194,8 +197,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
               const Icon = ICON_MAP[menu.iconName] || LayoutDashboard;
               const isDirectDashboard = menu.id === 'dashboard_menu' || menu.id === 'sa_dashboard_menu';
               const targetTabId = menu.submenus[0]?.id || menu.id;
-              const isExpanded = !isDirectDashboard && (expandedMenus[menu.id] ?? true);
               const hasActiveSub = menu.submenus.some(s => s.id === currentTab) || currentTab === menu.id;
+              const isExpanded = !isDirectDashboard && (expandedMenus[menu.id] ?? hasActiveSub);
 
               return (
                 <div key={menu.id} className="space-y-0.5">
@@ -204,8 +207,16 @@ export const Sidebar: React.FC<SidebarProps> = ({
                       if (isDirectDashboard) {
                         onTabChange(targetTabId);
                         if (window.innerWidth < 1024) onCloseMobile();
+                      } else if (menu.submenus.length === 1) {
+                        onTabChange(targetTabId);
+                        setExpandedMenus(prev => ({ ...prev, [menu.id]: true }));
+                        if (window.innerWidth < 1024) onCloseMobile();
                       } else {
+                        const willExpand = !isExpanded;
                         toggleMenuExpand(menu.id);
+                        if (willExpand && !hasActiveSub && targetTabId) {
+                          onTabChange(targetTabId);
+                        }
                       }
                     }}
                     className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold transition ${

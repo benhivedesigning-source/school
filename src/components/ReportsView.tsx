@@ -1,23 +1,18 @@
 import React, { useState } from 'react';
 import { Download, CheckCircle2, TrendingUp, TrendingDown, Landmark, BookOpen, AlertCircle } from 'lucide-react';
 
-export const ReportsView: React.FC = () => {
-  const [reportType, setReportType] = useState<'trial_balance' | 'income_exp' | 'balance_sheet' | 'day_book' | 'outstanding'>('trial_balance');
+interface ReportsViewProps {
+  initialTab?: 'trial_balance' | 'income_exp' | 'balance_sheet' | 'day_book' | 'outstanding';
+}
+
+export const ReportsView: React.FC<ReportsViewProps> = ({ initialTab = 'trial_balance' }) => {
+  const [reportType, setReportType] = useState<'trial_balance' | 'income_exp' | 'balance_sheet' | 'day_book' | 'outstanding'>(initialTab);
+  React.useEffect(() => {
+    if (initialTab) setReportType(initialTab);
+  }, [initialTab]);
 
   const sectionControls = (
     <div className="flex flex-wrap items-center gap-2.5 shrink-0">
-      <select
-        aria-label="Financial Report Type"
-        value={reportType}
-        onChange={(e) => setReportType(e.target.value as 'trial_balance' | 'income_exp' | 'balance_sheet' | 'day_book' | 'outstanding')}
-        className="bg-[#FAF7F3] border border-burgundy-200 rounded-xl px-3.5 py-2 text-xs font-bold text-burgundy-900 focus:outline-none focus:border-[#8B3552] cursor-pointer"
-      >
-        <option value="trial_balance">Trial Balance</option>
-        <option value="income_exp">Income & Expenditure</option>
-        <option value="balance_sheet">Balance Sheet</option>
-        <option value="day_book">Day Book & Ledger Extract</option>
-        <option value="outstanding">Outstanding Dues & Aging</option>
-      </select>
       <button
         onClick={() => alert('Official financial report generated and exported successfully as PDF / Excel spreadsheet.')}
         className="px-4 py-2 bg-[#8B3552] hover:bg-[#722B43] text-white font-semibold rounded-xl text-xs shadow-xs transition flex items-center space-x-2 whitespace-nowrap shrink-0"

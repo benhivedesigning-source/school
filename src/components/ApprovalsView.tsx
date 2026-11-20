@@ -107,15 +107,6 @@ export const ApprovalsView: React.FC<ApprovalsViewProps> = ({ auditLogs, initial
 
   const sectionControls = (
     <div className="flex flex-wrap items-center gap-2.5 shrink-0">
-      <select
-        aria-label="Approvals & Governance Section"
-        value={activeTab}
-        onChange={(e) => setActiveTab(e.target.value as 'pending' | 'audit')}
-        className="bg-[#FAF7F3] border border-burgundy-200 rounded-xl px-3.5 py-2 text-xs font-bold text-burgundy-900 focus:outline-none focus:border-[#8B3552] cursor-pointer"
-      >
-        <option value="pending">Pending Maker-Checker Approvals ({pendingCount})</option>
-        <option value="audit">Immutable Audit Trail ({auditLogs.length})</option>
-      </select>
       <span className="px-3 py-1.5 bg-amber-50 text-amber-800 border border-amber-200 rounded-xl text-xs font-bold shadow-2xs whitespace-nowrap">
         {pendingCount} Pending Reviews
       </span>

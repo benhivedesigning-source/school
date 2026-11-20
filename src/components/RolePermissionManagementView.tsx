@@ -147,22 +147,12 @@ export const RolePermissionManagementView: React.FC<RolePermissionManagementView
 
   const sectionControls = (
     <div className="flex flex-wrap items-center gap-2.5 shrink-0">
-      <select
-        aria-label="Role & Permission Section"
-        value={activeTab}
-        onChange={(e) => setActiveTab(e.target.value as 'templates' | 'matrix' | 'overrides')}
-        className="bg-white border border-burgundy-200 rounded-xl px-3.5 py-2 text-xs font-bold text-burgundy-900 focus:outline-none focus:border-[#8B3552] cursor-pointer shadow-xs"
-      >
-        <option value="templates">Default Roles & Templates ({roles.length})</option>
-        <option value="matrix">Granular Permission Matrix</option>
-        <option value="overrides">User-Specific Overrides</option>
-      </select>
       <button
         onClick={() => {
           setIsEditingRole(false);
           setModalRoleName('New Custom Staff Role');
           setModalRoleDesc('Custom tailored permission profile');
-          setModalAllowedSubmenus(['dash_branch_overview', 'pay_attendance']);
+          setModalAllowedSubmenus(['dashboard', 'pay_attendance']);
           setModalScope('assigned_branches');
           setShowRoleModal(true);
         }}

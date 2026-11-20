@@ -12,6 +12,7 @@ interface PayrollViewProps {
   branches?: Branch[];
   currentRole?: string;
   initialTab?: 'employees' | 'attendance' | 'runs' | 'structures' | 'payslips';
+  initialAttendanceViewMode?: 'daily' | 'register';
   isReadOnly?: boolean;
 }
 
@@ -25,27 +26,13 @@ export const PayrollView: React.FC<PayrollViewProps> = ({
   branches = [],
   currentRole = 'Admin',
   initialTab = 'employees',
+  initialAttendanceViewMode = 'daily',
   isReadOnly = false
 }) => {
   const [activeTab, setActiveTab] = useState<'employees' | 'attendance' | 'runs' | 'structures' | 'payslips'>(initialTab);
   React.useEffect(() => {
     if (initialTab) setActiveTab(initialTab);
   }, [initialTab]);
-
-  const sectionControls = (
-    <select
-      aria-label="Payroll Section"
-      value={activeTab}
-      onChange={(e) => setActiveTab(e.target.value as 'employees' | 'attendance' | 'runs' | 'structures' | 'payslips')}
-      className="bg-[#FAF7F3] border border-burgundy-200 rounded-xl px-3.5 py-2 text-xs font-bold text-burgundy-900 focus:outline-none focus:border-[#8B3552] cursor-pointer shrink-0"
-    >
-      <option value="employees">Employees ({employees.length})</option>
-      <option value="attendance">Attendance Register (Live)</option>
-      <option value="runs">Payroll Runs ({payrollRuns.length})</option>
-      <option value="structures">Salary Structures</option>
-      <option value="payslips">Payslips</option>
-    </select>
-  );
 
   return (
     <div className="p-6 sm:p-8 max-w-7xl mx-auto space-y-6 sm:space-y-8">
@@ -57,7 +44,6 @@ export const PayrollView: React.FC<PayrollViewProps> = ({
               <h3 className="text-base font-bold text-slate-900">Faculty & Staff Employee Directory</h3>
               <p className="text-xs text-slate-500 font-medium mt-0.5">Active personnel enrolled in monthly salary payroll · Total {employees.length} faculty members</p>
             </div>
-            {sectionControls}
           </div>
 
           <div className="overflow-x-auto">
@@ -107,7 +93,7 @@ export const PayrollView: React.FC<PayrollViewProps> = ({
           branches={branches}
           currentRole={currentRole}
           isReadOnly={isReadOnly}
-          sectionSelector={sectionControls}
+          initialViewMode={initialAttendanceViewMode}
         />
       )}
 
@@ -120,7 +106,6 @@ export const PayrollView: React.FC<PayrollViewProps> = ({
               <p className="text-xs text-slate-500 font-medium mt-0.5">Calculated payable days synced with monthly attendance register</p>
             </div>
             <div className="flex flex-wrap items-center gap-2.5">
-              {sectionControls}
               <button
                 onClick={() => alert('New Payroll Run initiated for November 2026. Payable days synced from attendance.')}
                 className="px-3.5 py-2 bg-[#8B3552] hover:bg-[#722B43] text-white font-semibold rounded-xl text-xs shadow-xs transition whitespace-nowrap shrink-0"
@@ -175,7 +160,6 @@ export const PayrollView: React.FC<PayrollViewProps> = ({
               <h3 className="text-base font-bold text-slate-900">Salary Components & Pay Scale Matrices</h3>
               <p className="text-xs text-slate-500 font-medium mt-0.5">Basic pay, DA, HRA, PF, and Professional Tax formulas</p>
             </div>
-            {sectionControls}
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -217,7 +201,6 @@ export const PayrollView: React.FC<PayrollViewProps> = ({
               <p className="text-xs text-slate-500 font-medium mt-0.5">Faculty salary slips with attendance deductions and tax computation</p>
             </div>
             <div className="flex flex-wrap items-center gap-2.5">
-              {sectionControls}
               <button
                 onClick={() => alert('Bulk payslips generated and sent to staff portal/email.')}
                 className="px-3.5 py-2 bg-[#8B3552] hover:bg-[#722B43] text-white font-semibold rounded-xl text-xs shadow-xs transition whitespace-nowrap shrink-0"

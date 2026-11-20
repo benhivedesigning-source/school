@@ -5,13 +5,18 @@ import { Vendor, VendorBill } from '../types';
 interface ProcurementViewProps {
   vendors: Vendor[];
   vendorBills: VendorBill[];
+  initialTab?: 'bills' | 'pos' | 'payments' | 'vendors';
 }
 
 export const ProcurementView: React.FC<ProcurementViewProps> = ({
   vendors,
-  vendorBills
+  vendorBills,
+  initialTab = 'bills'
 }) => {
-  const [activeTab, setActiveTab] = useState<'bills' | 'pos' | 'payments' | 'vendors'>('bills');
+  const [activeTab, setActiveTab] = useState<'bills' | 'pos' | 'payments' | 'vendors'>(initialTab);
+  React.useEffect(() => {
+    if (initialTab) setActiveTab(initialTab);
+  }, [initialTab]);
   const [showModal, setShowModal] = useState(false);
   const [showPoModal, setShowPoModal] = useState(false);
 
@@ -72,17 +77,6 @@ export const ProcurementView: React.FC<ProcurementViewProps> = ({
 
   const sectionControls = (
     <div className="flex flex-wrap items-center gap-2.5 shrink-0">
-      <select
-        aria-label="Procurement Section"
-        value={activeTab}
-        onChange={(e) => setActiveTab(e.target.value as 'vendors' | 'pos' | 'bills' | 'payments')}
-        className="bg-[#FAF7F3] border border-burgundy-200 rounded-xl px-3.5 py-2 text-xs font-bold text-burgundy-900 focus:outline-none focus:border-[#8B3552] cursor-pointer"
-      >
-        <option value="bills">Vendor Bills & Payables ({vendorBills.length})</option>
-        <option value="pos">Purchase Requests & Orders ({purchaseOrders.length})</option>
-        <option value="payments">Disbursements & Payments ({vendorPayments.length})</option>
-        <option value="vendors">Vendor Directory ({vendors.length})</option>
-      </select>
       {activeTab === 'pos' && (
         <button
           onClick={() => setShowPoModal(true)}

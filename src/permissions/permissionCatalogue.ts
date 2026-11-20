@@ -31,14 +31,6 @@ export const SUPER_ADMIN_MENUS: MenuItem[] = [
     ]
   },
   {
-    id: 'sa_org_mgmt_menu',
-    title: 'Organisation Management',
-    iconName: 'Building',
-    submenus: [
-      { id: 'sa_org_mgmt', title: 'Organisation Hub', actions: ['view', 'create', 'edit', 'delete', 'export'], scope: 'all' }
-    ]
-  },
-  {
     id: 'sa_branch_mgmt_menu',
     title: 'Branch Management',
     iconName: 'MapPin',
@@ -52,14 +44,6 @@ export const SUPER_ADMIN_MENUS: MenuItem[] = [
     iconName: 'CreditCard',
     submenus: [
       { id: 'sa_subscription_mgmt', title: 'Subscriptions & Billing', actions: ['view', 'create', 'edit', 'pay_process', 'export'], scope: 'all' }
-    ]
-  },
-  {
-    id: 'sa_branch_admin_mgmt_menu',
-    title: 'Branch Admin Management',
-    iconName: 'UserCheck',
-    submenus: [
-      { id: 'sa_branch_admin_mgmt', title: 'Branch Administrators', actions: ['view', 'create', 'edit'], scope: 'all' }
     ]
   },
   {
@@ -96,7 +80,7 @@ export const SUPER_ADMIN_MENUS: MenuItem[] = [
   }
 ];
 
-// MASTER ADMIN / CENTRAL STAFF PERMISSION CATALOGUE MENUS (EXACTLY ONE SUBMENU PER MAIN MENU)
+// MASTER ADMIN / CENTRAL STAFF PERMISSION CATALOGUE MENUS
 export const MASTER_ADMIN_MENUS: MenuItem[] = [
   {
     id: 'dashboard_menu',
@@ -111,7 +95,11 @@ export const MASTER_ADMIN_MENUS: MenuItem[] = [
     title: 'Organisation & Branch',
     iconName: 'Building',
     submenus: [
-      { id: 'organisation_branch', title: 'Organisation & GST Setup', actions: ['view', 'create', 'edit'], scope: 'assigned_branches' }
+      { id: 'org_companies', title: 'Legal Companies', actions: ['view', 'create', 'edit'], scope: 'assigned_branches' },
+      { id: 'org_branches', title: 'Campuses & Branches', actions: ['view', 'create', 'edit'], scope: 'assigned_branches' },
+      { id: 'org_fy', title: 'Financial Year & Closing', actions: ['view', 'create', 'edit'], scope: 'assigned_branches' },
+      { id: 'org_gst', title: 'GST Registrations', actions: ['view', 'create', 'edit'], scope: 'assigned_branches' },
+      { id: 'org_users', title: 'Campus Administrators', actions: ['view', 'create', 'edit'], scope: 'assigned_branches' }
     ]
   },
   {
@@ -119,7 +107,10 @@ export const MASTER_ADMIN_MENUS: MenuItem[] = [
     title: 'Staff Management',
     iconName: 'Users',
     submenus: [
-      { id: 'staff_management', title: 'Staff Roster & Profiles', actions: ['view', 'create', 'edit', 'export'], scope: 'assigned_branches' }
+      { id: 'sm_staff', title: 'Staff Directory', actions: ['view', 'create', 'edit', 'export'], scope: 'assigned_branches' },
+      { id: 'sm_roles', title: 'Role Templates & Custom Roles', actions: ['view', 'create', 'edit', 'export'], scope: 'assigned_branches' },
+      { id: 'sm_matrix', title: 'Permission Catalogue Matrix', actions: ['view', 'export'], scope: 'assigned_branches' },
+      { id: 'sm_overrides', title: 'User-Specific Overrides', actions: ['view', 'create', 'edit', 'delete'], scope: 'assigned_branches' }
     ]
   },
   {
@@ -127,7 +118,7 @@ export const MASTER_ADMIN_MENUS: MenuItem[] = [
     title: 'Role Management',
     iconName: 'Shield',
     submenus: [
-      { id: 'role_management', title: 'Role Templates & Custom Roles', actions: ['view', 'create', 'edit', 'export'], scope: 'all' }
+      { id: 'role_templates', title: 'Default Roles & Templates', actions: ['view', 'create', 'edit', 'export'], scope: 'all' }
     ]
   },
   {
@@ -135,7 +126,8 @@ export const MASTER_ADMIN_MENUS: MenuItem[] = [
     title: 'Permission Management',
     iconName: 'KeyRound',
     submenus: [
-      { id: 'permission_management', title: 'Permission Matrix & Overrides', actions: ['view', 'create', 'edit', 'delete'], scope: 'all' }
+      { id: 'perm_matrix', title: 'Granular Permission Matrix', actions: ['view', 'edit', 'export'], scope: 'all' },
+      { id: 'perm_overrides', title: 'User-Specific Overrides', actions: ['view', 'create', 'edit', 'delete'], scope: 'all' }
     ]
   },
   {
@@ -143,7 +135,10 @@ export const MASTER_ADMIN_MENUS: MenuItem[] = [
     title: 'Accounting Setup',
     iconName: 'BookOpen',
     submenus: [
-      { id: 'accounting_setup', title: 'Accounting & Vouchers Hub', actions: ['view', 'create', 'edit', 'submit', 'approve_reject', 'export', 'print_download'], scope: 'assigned_branches' }
+      { id: 'acc_vouchers', title: 'Day Book & Vouchers', actions: ['view', 'create', 'edit', 'submit', 'approve_reject', 'export', 'print_download'], scope: 'assigned_branches' },
+      { id: 'acc_ledgers', title: 'Chart of Ledgers', actions: ['view', 'create', 'edit', 'export'], scope: 'assigned_branches' },
+      { id: 'acc_groups', title: 'Account Groups', actions: ['view', 'create', 'edit', 'export'], scope: 'assigned_branches' },
+      { id: 'acc_cost_centres', title: 'Cost Centres', actions: ['view', 'create', 'edit', 'export'], scope: 'assigned_branches' }
     ]
   },
   {
@@ -151,7 +146,11 @@ export const MASTER_ADMIN_MENUS: MenuItem[] = [
     title: 'Student Finance',
     iconName: 'GraduationCap',
     submenus: [
-      { id: 'student_finance', title: 'Students, Fees & Receipts Hub', actions: ['view', 'create', 'edit', 'approve_reject', 'export', 'print_download'], scope: 'assigned_branches' }
+      { id: 'sf_invoices', title: 'Fee Invoices', actions: ['view', 'create', 'edit', 'export', 'print_download'], scope: 'assigned_branches' },
+      { id: 'sf_students', title: 'Students & Guardians', actions: ['view', 'create', 'edit', 'export'], scope: 'assigned_branches' },
+      { id: 'sf_payments', title: 'Collections & Receipts', actions: ['view', 'create', 'edit', 'export', 'print_download'], scope: 'assigned_branches' },
+      { id: 'sf_plans', title: 'Fee Plans & Heads', actions: ['view', 'create', 'edit'], scope: 'assigned_branches' },
+      { id: 'sf_refunds', title: 'Concessions & Refunds', actions: ['view', 'create', 'approve_reject', 'print_download'], scope: 'assigned_branches' }
     ]
   },
   {
@@ -159,7 +158,10 @@ export const MASTER_ADMIN_MENUS: MenuItem[] = [
     title: 'Banking',
     iconName: 'Landmark',
     submenus: [
-      { id: 'banking', title: 'Banking & Reconciliation Hub', actions: ['view', 'create', 'edit', 'import', 'export', 'print_download'], scope: 'assigned_bank_accounts' }
+      { id: 'bnk_reconciliation', title: 'Bank Reconciliation', actions: ['view', 'create', 'edit', 'import', 'export'], scope: 'assigned_bank_accounts' },
+      { id: 'bnk_book', title: 'Bank Book Ledger', actions: ['view', 'export', 'print_download'], scope: 'assigned_bank_accounts' },
+      { id: 'bnk_accounts', title: 'Bank Accounts', actions: ['view', 'create', 'edit'], scope: 'assigned_bank_accounts' },
+      { id: 'bnk_gateways', title: 'Payment Gateways', actions: ['view', 'edit', 'export'], scope: 'assigned_bank_accounts' }
     ]
   },
   {
@@ -167,7 +169,10 @@ export const MASTER_ADMIN_MENUS: MenuItem[] = [
     title: 'Procurement',
     iconName: 'ShoppingBag',
     submenus: [
-      { id: 'procurement', title: 'Vendors, Bills & Payables', actions: ['view', 'create', 'edit', 'submit', 'approve_reject', 'pay_process', 'export', 'print_download'], scope: 'assigned_branches' }
+      { id: 'prc_bills', title: 'Vendor Bills & Payables', actions: ['view', 'create', 'edit', 'submit', 'approve_reject', 'export'], scope: 'assigned_branches' },
+      { id: 'prc_pos', title: 'Purchase Requests & Orders', actions: ['view', 'create', 'edit', 'submit', 'approve_reject', 'print_download'], scope: 'assigned_branches' },
+      { id: 'prc_payments', title: 'Disbursements & Payments', actions: ['view', 'create', 'pay_process', 'export', 'print_download'], scope: 'assigned_branches' },
+      { id: 'prc_vendors', title: 'Vendor Directory', actions: ['view', 'create', 'edit', 'export'], scope: 'assigned_branches' }
     ]
   },
   {
@@ -175,7 +180,12 @@ export const MASTER_ADMIN_MENUS: MenuItem[] = [
     title: 'Payroll',
     iconName: 'Wallet',
     submenus: [
-      { id: 'payroll', title: 'Payroll & Attendance Hub', actions: ['view', 'create', 'edit', 'submit', 'approve_reject', 'pay_process', 'import', 'export', 'print_download'], scope: 'assigned_branches' }
+      { id: 'pay_employees', title: 'Employees', actions: ['view', 'create', 'edit', 'export'], scope: 'assigned_branches' },
+      { id: 'pay_attendance', title: 'Daily Attendance', actions: ['view', 'create', 'edit', 'import', 'export', 'print_download'], scope: 'assigned_branches' },
+      { id: 'pay_attendance_register', title: 'Monthly Attendance Register', actions: ['view', 'export', 'print_download'], scope: 'assigned_branches' },
+      { id: 'pay_runs', title: 'Payroll Runs', actions: ['view', 'create', 'submit', 'approve_reject', 'pay_process', 'export'], scope: 'assigned_branches' },
+      { id: 'pay_structures', title: 'Salary Structures', actions: ['view', 'create', 'edit'], scope: 'assigned_branches' },
+      { id: 'pay_payslips', title: 'Payslips', actions: ['view', 'export', 'print_download'], scope: 'assigned_branches' }
     ]
   },
   {
@@ -183,7 +193,10 @@ export const MASTER_ADMIN_MENUS: MenuItem[] = [
     title: 'Tax & Compliance',
     iconName: 'FileCheck',
     submenus: [
-      { id: 'tax_compliance', title: 'Tax Rules, GST & TDS', actions: ['view', 'create', 'edit', 'pay_process', 'export', 'print_download'], scope: 'assigned_branches' }
+      { id: 'tax_rules', title: 'Tax Rules & Rates', actions: ['view', 'create', 'edit'], scope: 'assigned_branches' },
+      { id: 'tax_gst', title: 'GST Transactions', actions: ['view', 'export', 'print_download'], scope: 'assigned_branches' },
+      { id: 'tax_tds', title: 'TDS Deductions', actions: ['view', 'export', 'print_download'], scope: 'assigned_branches' },
+      { id: 'tax_challans', title: 'Tax Challans (ITNS 281)', actions: ['view', 'pay_process', 'print_download'], scope: 'assigned_branches' }
     ]
   },
   {
@@ -207,7 +220,11 @@ export const MASTER_ADMIN_MENUS: MenuItem[] = [
     title: 'Reports',
     iconName: 'BarChart3',
     submenus: [
-      { id: 'reports', title: 'Financial Statements & Ledgers', actions: ['view', 'export', 'print_download'], scope: 'assigned_branches' }
+      { id: 'rep_trial_balance', title: 'Trial Balance', actions: ['view', 'export', 'print_download'], scope: 'assigned_branches' },
+      { id: 'rep_income_exp', title: 'Income & Expenditure', actions: ['view', 'export', 'print_download'], scope: 'assigned_branches' },
+      { id: 'rep_balance_sheet', title: 'Balance Sheet', actions: ['view', 'export', 'print_download'], scope: 'assigned_branches' },
+      { id: 'rep_day_book', title: 'Day Book & Ledger Extract', actions: ['view', 'export', 'print_download'], scope: 'assigned_branches' },
+      { id: 'rep_outstanding', title: 'Outstanding Dues & Aging', actions: ['view', 'export', 'print_download'], scope: 'assigned_branches' }
     ]
   },
   {
@@ -304,7 +321,7 @@ export const PARENT_MENUS: MenuItem[] = [
   }
 ];
 
-// 8 DEFAULT STAFF ROLE TEMPLATES MAPPED TO MAIN SUBMENU IDS
+// 8 DEFAULT STAFF ROLE TEMPLATES MAPPED TO SECTION SUBMENU IDS
 export const DEFAULT_STAFF_ROLE_TEMPLATES: RoleDefinition[] = [
   {
     roleId: 'role-fin-head',
@@ -320,32 +337,32 @@ export const DEFAULT_STAFF_ROLE_TEMPLATES: RoleDefinition[] = [
       },
       {
         menuId: 'accounting_setup_menu',
-        submenuIds: ['accounting_setup'],
+        submenuIds: ['acc_vouchers', 'acc_ledgers', 'acc_groups', 'acc_cost_centres'],
         scope: 'assigned_branches'
       },
       {
         menuId: 'student_finance_menu',
-        submenuIds: ['student_finance'],
+        submenuIds: ['sf_invoices', 'sf_students', 'sf_payments', 'sf_plans', 'sf_refunds'],
         scope: 'assigned_branches'
       },
       {
         menuId: 'banking_menu',
-        submenuIds: ['banking'],
+        submenuIds: ['bnk_reconciliation', 'bnk_book', 'bnk_accounts', 'bnk_gateways'],
         scope: 'assigned_bank_accounts'
       },
       {
         menuId: 'procurement_menu',
-        submenuIds: ['procurement'],
+        submenuIds: ['prc_bills', 'prc_pos', 'prc_payments', 'prc_vendors'],
         scope: 'assigned_branches'
       },
       {
         menuId: 'payroll_menu',
-        submenuIds: ['payroll'],
+        submenuIds: ['pay_employees', 'pay_attendance', 'pay_attendance_register', 'pay_runs', 'pay_structures', 'pay_payslips'],
         scope: 'assigned_branches'
       },
       {
         menuId: 'tax_compliance_menu',
-        submenuIds: ['tax_compliance'],
+        submenuIds: ['tax_rules', 'tax_gst', 'tax_tds', 'tax_challans'],
         scope: 'assigned_branches'
       },
       {
@@ -355,7 +372,7 @@ export const DEFAULT_STAFF_ROLE_TEMPLATES: RoleDefinition[] = [
       },
       {
         menuId: 'reports_menu',
-        submenuIds: ['reports'],
+        submenuIds: ['rep_trial_balance', 'rep_income_exp', 'rep_balance_sheet', 'rep_day_book', 'rep_outstanding'],
         scope: 'assigned_branches'
       },
       {
@@ -384,32 +401,32 @@ export const DEFAULT_STAFF_ROLE_TEMPLATES: RoleDefinition[] = [
       },
       {
         menuId: 'accounting_setup_menu',
-        submenuIds: ['accounting_setup'],
+        submenuIds: ['acc_vouchers', 'acc_ledgers', 'acc_groups', 'acc_cost_centres'],
         scope: 'assigned_branches'
       },
       {
         menuId: 'student_finance_menu',
-        submenuIds: ['student_finance'],
+        submenuIds: ['sf_invoices', 'sf_students', 'sf_payments', 'sf_plans', 'sf_refunds'],
         scope: 'assigned_branches'
       },
       {
         menuId: 'banking_menu',
-        submenuIds: ['banking'],
+        submenuIds: ['bnk_reconciliation', 'bnk_book', 'bnk_accounts', 'bnk_gateways'],
         scope: 'assigned_bank_accounts'
       },
       {
         menuId: 'procurement_menu',
-        submenuIds: ['procurement'],
+        submenuIds: ['prc_bills', 'prc_pos', 'prc_payments', 'prc_vendors'],
         scope: 'assigned_branches'
       },
       {
         menuId: 'tax_compliance_menu',
-        submenuIds: ['tax_compliance'],
+        submenuIds: ['tax_rules', 'tax_gst', 'tax_tds', 'tax_challans'],
         scope: 'assigned_branches'
       },
       {
         menuId: 'reports_menu',
-        submenuIds: ['reports'],
+        submenuIds: ['rep_trial_balance', 'rep_income_exp', 'rep_balance_sheet', 'rep_day_book', 'rep_outstanding'],
         scope: 'assigned_branches'
       },
       {
@@ -433,17 +450,17 @@ export const DEFAULT_STAFF_ROLE_TEMPLATES: RoleDefinition[] = [
       },
       {
         menuId: 'student_finance_menu',
-        submenuIds: ['student_finance'],
+        submenuIds: ['sf_invoices', 'sf_students', 'sf_payments', 'sf_refunds'],
         scope: 'assigned_branches'
       },
       {
         menuId: 'banking_menu',
-        submenuIds: ['banking'],
+        submenuIds: ['bnk_reconciliation', 'bnk_book', 'bnk_accounts'],
         scope: 'assigned_bank_accounts'
       },
       {
         menuId: 'reports_menu',
-        submenuIds: ['reports'],
+        submenuIds: ['rep_day_book', 'rep_outstanding'],
         scope: 'assigned_branches'
       }
     ]
@@ -462,12 +479,12 @@ export const DEFAULT_STAFF_ROLE_TEMPLATES: RoleDefinition[] = [
       },
       {
         menuId: 'student_finance_menu',
-        submenuIds: ['student_finance'],
+        submenuIds: ['sf_invoices', 'sf_students', 'sf_payments', 'sf_plans', 'sf_refunds'],
         scope: 'assigned_branches'
       },
       {
         menuId: 'reports_menu',
-        submenuIds: ['reports'],
+        submenuIds: ['rep_day_book', 'rep_outstanding'],
         scope: 'assigned_branches'
       }
     ]
@@ -486,22 +503,22 @@ export const DEFAULT_STAFF_ROLE_TEMPLATES: RoleDefinition[] = [
       },
       {
         menuId: 'payroll_menu',
-        submenuIds: ['payroll'],
+        submenuIds: ['pay_employees', 'pay_attendance', 'pay_attendance_register', 'pay_runs', 'pay_structures', 'pay_payslips'],
         scope: 'assigned_branches'
       },
       {
         menuId: 'accounting_setup_menu',
-        submenuIds: ['accounting_setup'],
+        submenuIds: ['acc_vouchers', 'acc_ledgers'],
         scope: 'assigned_branches'
       },
       {
         menuId: 'tax_compliance_menu',
-        submenuIds: ['tax_compliance'],
+        submenuIds: ['tax_tds', 'tax_challans'],
         scope: 'assigned_branches'
       },
       {
         menuId: 'reports_menu',
-        submenuIds: ['reports'],
+        submenuIds: ['rep_day_book', 'rep_trial_balance'],
         scope: 'assigned_branches'
       }
     ]
@@ -520,7 +537,7 @@ export const DEFAULT_STAFF_ROLE_TEMPLATES: RoleDefinition[] = [
       },
       {
         menuId: 'procurement_menu',
-        submenuIds: ['procurement'],
+        submenuIds: ['prc_bills', 'prc_pos', 'prc_payments', 'prc_vendors'],
         scope: 'assigned_branches'
       },
       {
@@ -535,12 +552,12 @@ export const DEFAULT_STAFF_ROLE_TEMPLATES: RoleDefinition[] = [
       },
       {
         menuId: 'accounting_setup_menu',
-        submenuIds: ['accounting_setup'],
+        submenuIds: ['acc_vouchers', 'acc_cost_centres'],
         scope: 'assigned_branches'
       },
       {
         menuId: 'reports_menu',
-        submenuIds: ['reports'],
+        submenuIds: ['rep_trial_balance', 'rep_outstanding'],
         scope: 'assigned_branches'
       }
     ]
@@ -559,7 +576,7 @@ export const DEFAULT_STAFF_ROLE_TEMPLATES: RoleDefinition[] = [
       },
       {
         menuId: 'reports_menu',
-        submenuIds: ['reports'],
+        submenuIds: ['rep_trial_balance', 'rep_income_exp', 'rep_balance_sheet', 'rep_day_book', 'rep_outstanding'],
         scope: 'assigned_branches'
       },
       {
@@ -588,32 +605,32 @@ export const DEFAULT_STAFF_ROLE_TEMPLATES: RoleDefinition[] = [
       },
       {
         menuId: 'accounting_setup_menu',
-        submenuIds: ['accounting_setup'],
+        submenuIds: ['acc_vouchers', 'acc_ledgers', 'acc_groups', 'acc_cost_centres'],
         scope: 'authorised_records'
       },
       {
         menuId: 'student_finance_menu',
-        submenuIds: ['student_finance'],
+        submenuIds: ['sf_invoices', 'sf_students', 'sf_payments', 'sf_plans', 'sf_refunds'],
         scope: 'authorised_records'
       },
       {
         menuId: 'banking_menu',
-        submenuIds: ['banking'],
+        submenuIds: ['bnk_reconciliation', 'bnk_book', 'bnk_accounts', 'bnk_gateways'],
         scope: 'authorised_records'
       },
       {
         menuId: 'procurement_menu',
-        submenuIds: ['procurement'],
+        submenuIds: ['prc_bills', 'prc_pos', 'prc_payments', 'prc_vendors'],
         scope: 'authorised_records'
       },
       {
         menuId: 'payroll_menu',
-        submenuIds: ['payroll'],
+        submenuIds: ['pay_employees', 'pay_attendance', 'pay_attendance_register', 'pay_runs', 'pay_structures', 'pay_payslips'],
         scope: 'authorised_records'
       },
       {
         menuId: 'tax_compliance_menu',
-        submenuIds: ['tax_compliance'],
+        submenuIds: ['tax_rules', 'tax_gst', 'tax_tds', 'tax_challans'],
         scope: 'authorised_records'
       },
       {
@@ -628,7 +645,7 @@ export const DEFAULT_STAFF_ROLE_TEMPLATES: RoleDefinition[] = [
       },
       {
         menuId: 'reports_menu',
-        submenuIds: ['reports'],
+        submenuIds: ['rep_trial_balance', 'rep_income_exp', 'rep_balance_sheet', 'rep_day_book', 'rep_outstanding'],
         scope: 'authorised_records'
       },
       {

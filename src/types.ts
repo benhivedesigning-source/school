@@ -450,6 +450,25 @@ export interface PlatformSubscription {
   features_enabled: string[];
 }
 
+export interface SubscriptionHistoryItem {
+  history_id: string;
+  invoice_number: string;
+  subscription_id: string;
+  organisation_id: string;
+  organisation_name: string;
+  plan_name: 'Standard Campus' | 'Enterprise Multi-Campus' | 'Trust Ultimate';
+  billing_cycle: 'Annual' | 'Quarterly' | 'Monthly';
+  event_type: 'Renewal' | 'New Subscription' | 'Plan Upgrade' | 'Quarterly Billing';
+  billing_date: string;
+  period_start: string;
+  period_end: string;
+  amount: number;
+  payment_method: string;
+  payment_reference: string;
+  status: 'Paid' | 'Renewed' | 'Pending' | 'Refunded';
+  branches_licensed: number;
+}
+
 export interface PlatformUser {
   id: string;
   name: string;

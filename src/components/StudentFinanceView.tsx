@@ -49,18 +49,6 @@ export const StudentFinanceView: React.FC<StudentFinanceViewProps> = ({
 
   const sectionControls = (
     <div className="flex flex-wrap items-center gap-2.5 shrink-0">
-      <select
-        aria-label="Student Finance Section"
-        value={activeTab}
-        onChange={(e) => setActiveTab(e.target.value as 'students' | 'plans' | 'invoices' | 'payments' | 'refunds')}
-        className="bg-[#FAF7F3] border border-burgundy-200 rounded-xl px-3.5 py-2 text-xs font-bold text-burgundy-900 focus:outline-none focus:border-[#8B3552] cursor-pointer"
-      >
-        <option value="invoices">Fee Invoices ({invoices.length})</option>
-        <option value="students">Students & Guardians ({students.length})</option>
-        <option value="payments">Collections & Receipts ({payments.length})</option>
-        <option value="plans">Fee Plans & Heads ({feePlans.length})</option>
-        <option value="refunds">Concessions & Refunds ({refunds.length})</option>
-      </select>
       <button
         onClick={() => {
           if (activeTab === 'invoices') setShowInvoiceModal(true);

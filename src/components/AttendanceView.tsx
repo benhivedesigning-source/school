@@ -38,7 +38,7 @@ interface AttendanceViewProps {
   canImport?: boolean;
   canExport?: boolean;
   canPrint?: boolean;
-  sectionSelector?: React.ReactNode;
+  initialViewMode?: 'daily' | 'register';
 }
 
 export const AttendanceView: React.FC<AttendanceViewProps> = ({
@@ -55,9 +55,12 @@ export const AttendanceView: React.FC<AttendanceViewProps> = ({
   canImport = true,
   canExport = true,
   canPrint = true,
-  sectionSelector
+  initialViewMode = 'daily'
 }) => {
-  const [viewMode, setViewMode] = useState<'daily' | 'register' | 'details'>('daily');
+  const [viewMode, setViewMode] = useState<'daily' | 'register' | 'details'>(initialViewMode);
+  React.useEffect(() => {
+    setViewMode(initialViewMode);
+  }, [initialViewMode]);
   const [selectedDate, setSelectedDate] = useState<string>('2026-11-17');
   const [selectedBranch, setSelectedBranch] = useState<string>('all');
   const [selectedDepartment, setSelectedDepartment] = useState<string>('all');
@@ -314,16 +317,6 @@ export const AttendanceView: React.FC<AttendanceViewProps> = ({
 
   const actionControls = (
     <div className="flex flex-wrap items-center gap-2 shrink-0">
-      {sectionSelector}
-      <select
-        aria-label="Attendance View Mode"
-        value={viewMode}
-        onChange={(e) => setViewMode(e.target.value as 'daily' | 'register')}
-        className="bg-[#FAF7F3] border border-burgundy-200 rounded-xl px-3 py-1.5 text-xs font-bold text-burgundy-900 focus:outline-none focus:border-[#8B3552] cursor-pointer"
-      >
-        <option value="daily">Daily Attendance View</option>
-        <option value="register">Monthly Attendance Register</option>
-      </select>
 
       {isReadOnly && (
         <div className="flex items-center space-x-1.5 text-xs text-amber-700 bg-amber-50 px-3 py-1.5 rounded-xl border border-amber-200 whitespace-nowrap shrink-0">

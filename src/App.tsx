@@ -277,6 +277,7 @@ export default function App() {
           branches={branches}
           onAddBranch={(b) => { setBranches([...branches, b]); handleAuditLog('CREATE', 'Branch Management', `Created campus ${b.branch_name}`); }}
           initialTab={currentTab}
+          onNavigate={(tab) => setCurrentTab(tab)}
         />
       );
     }
@@ -290,6 +291,12 @@ export default function App() {
           selectedFy={selectedFy}
           vouchers={vouchers}
           invoices={invoices}
+          payments={payments}
+          attendanceRecords={attendanceRecords}
+          auditLogs={auditLogs}
+          branches={branches}
+          users={users}
+          roles={roles}
           onNavigate={(tab) => setCurrentTab(tab)}
           currentRole={currentRole}
           staffModules={activeStaffUser?.assigned_roles || ['Finance Head / Controller']}
@@ -300,17 +307,31 @@ export default function App() {
 
     // 4. ORGANISATION & BRANCH
     if (currentTab === 'organisation_branch' || currentTab.startsWith('org_')) {
+      const orgTabMap: Record<string, 'companies' | 'branches' | 'fy' | 'gst' | 'users'> = {
+        org_companies: 'companies',
+        org_branches: 'branches',
+        org_fy: 'fy',
+        org_gst: 'gst',
+        org_users: 'users'
+      };
       return (
         <OrganisationView 
           companies={companies}
           branches={branches}
           users={users}
+          initialTab={orgTabMap[currentTab] || 'companies'}
         />
       );
     }
 
     // 5. STAFF MANAGEMENT
     if (currentTab === 'staff_management' || currentTab.startsWith('sm_')) {
+      const staffTabMap: Record<string, 'staff' | 'roles' | 'matrix' | 'overrides'> = {
+        sm_staff: 'staff',
+        sm_roles: 'roles',
+        sm_matrix: 'matrix',
+        sm_overrides: 'overrides'
+      };
       return (
         <StaffManagementView 
           users={users}
@@ -319,12 +340,22 @@ export default function App() {
           onSwitchToStaffRole={handleSwitchToStaffProfile}
           branches={branches}
           roles={roles}
+          onAddRole={handleAddRole}
+          onUpdateRole={handleUpdateRole}
+          initialTab={staffTabMap[currentTab] || 'staff'}
+          onAuditLog={handleAuditLog}
         />
       );
     }
 
     // 6. ROLE & PERMISSION MANAGEMENT
-    if (currentTab === 'role_management' || currentTab === 'permission_management' || currentTab.startsWith('role_')) {
+    if (currentTab === 'role_management' || currentTab === 'permission_management' || currentTab.startsWith('role_') || currentTab.startsWith('perm_')) {
+      const rolePermTab =
+        currentTab === 'perm_matrix' || currentTab === 'permission_management'
+          ? 'matrix'
+          : currentTab === 'perm_overrides'
+          ? 'overrides'
+          : 'templates';
       return (
         <RolePermissionManagementView 
           roles={roles}
@@ -333,14 +364,22 @@ export default function App() {
           users={users}
           branches={branches}
           currentRole={currentRole}
-          initialTab={currentTab === 'permission_management' ? 'matrix' : 'templates'}
+          initialTab={rolePermTab}
           onAuditLog={handleAuditLog}
         />
       );
     }
 
-    // 7. PAYROLL & ATTENDANCE (Attendance directly after Employees in Payroll hub!)
+    // 7. PAYROLL & ATTENDANCE
     if (currentTab === 'payroll' || currentTab.startsWith('pay_')) {
+      const payrollTabMap: Record<string, 'employees' | 'attendance' | 'runs' | 'structures' | 'payslips'> = {
+        pay_employees: 'employees',
+        pay_attendance: 'attendance',
+        pay_attendance_register: 'attendance',
+        pay_runs: 'runs',
+        pay_structures: 'structures',
+        pay_payslips: 'payslips'
+      };
       return (
         <PayrollView 
           employees={MOCK_EMPLOYEES}
@@ -351,13 +390,20 @@ export default function App() {
           onBulkAddAttendance={handleBulkAddAttendance}
           branches={branches}
           currentRole={currentRole}
-          initialTab={currentTab === 'pay_attendance' ? 'attendance' : 'employees'}
+          initialTab={payrollTabMap[currentTab] || 'employees'}
+          initialAttendanceViewMode={currentTab === 'pay_attendance_register' ? 'register' : 'daily'}
         />
       );
     }
 
     // 8. ACCOUNTING SETUP
     if (currentTab === 'accounting_setup' || currentTab.startsWith('acc_')) {
+      const accTabMap: Record<string, 'vouchers' | 'ledgers' | 'groups' | 'cost_centres'> = {
+        acc_vouchers: 'vouchers',
+        acc_ledgers: 'ledgers',
+        acc_groups: 'groups',
+        acc_cost_centres: 'cost_centres'
+      };
       return (
         <AccountingView 
           accountGroups={MOCK_ACCOUNT_GROUPS}
@@ -368,13 +414,20 @@ export default function App() {
             setVouchers([v, ...vouchers]);
             handleAuditLog('POST', 'Accounting Vouchers', `Posted voucher ${v.voucher_number} for ₹${v.total_debit.toLocaleString('en-IN')}`);
           }}
-          initialTab="vouchers"
+          initialTab={accTabMap[currentTab] || 'vouchers'}
         />
       );
     }
 
     // 9. STUDENT FINANCE
     if (currentTab === 'student_finance' || currentTab.startsWith('sf_')) {
+      const sfTabMap: Record<string, 'invoices' | 'students' | 'payments' | 'plans' | 'refunds'> = {
+        sf_invoices: 'invoices',
+        sf_students: 'students',
+        sf_payments: 'payments',
+        sf_plans: 'plans',
+        sf_refunds: 'refunds'
+      };
       return (
         <StudentFinanceView 
           students={MOCK_STUDENTS}
@@ -382,37 +435,63 @@ export default function App() {
           feePlans={MOCK_FEE_PLANS}
           invoices={invoices}
           payments={payments}
-          initialTab="invoices"
+          initialTab={sfTabMap[currentTab] || 'invoices'}
         />
       );
     }
 
     // 10. BANKING
     if (currentTab === 'banking' || currentTab.startsWith('bnk_')) {
+      const bnkTabMap: Record<string, 'reconciliation' | 'book' | 'accounts' | 'gateways'> = {
+        bnk_reconciliation: 'reconciliation',
+        bnk_book: 'book',
+        bnk_accounts: 'accounts',
+        bnk_gateways: 'gateways'
+      };
       return (
         <BankingView 
           bankAccounts={MOCK_BANK_ACCOUNTS}
           gateways={MOCK_GATEWAYS}
           statements={MOCK_STATEMENTS}
           vouchers={vouchers}
-          initialTab="reconciliation"
+          initialTab={bnkTabMap[currentTab] || 'reconciliation'}
         />
       );
     }
 
     // 11. PROCUREMENT
     if (currentTab === 'procurement' || currentTab.startsWith('prc_')) {
+      const prcTabMap: Record<string, 'bills' | 'pos' | 'payments' | 'vendors'> = {
+        prc_bills: 'bills',
+        prc_pos: 'pos',
+        prc_payments: 'payments',
+        prc_vendors: 'vendors'
+      };
       return (
         <ProcurementView 
           vendors={MOCK_VENDORS}
           vendorBills={MOCK_VENDOR_BILLS}
+          initialTab={prcTabMap[currentTab] || 'bills'}
         />
       );
     }
 
     // 12. TAX & COMPLIANCE
     if (currentTab === 'tax_compliance' || currentTab.startsWith('tax_')) {
-      return <AdminOperationsView moduleType="tax" branches={branches} currentRole={currentRole} />;
+      const taxTabMap: Record<string, 'rules' | 'gst' | 'tds' | 'challans'> = {
+        tax_rules: 'rules',
+        tax_gst: 'gst',
+        tax_tds: 'tds',
+        tax_challans: 'challans'
+      };
+      return (
+        <AdminOperationsView
+          moduleType="tax"
+          branches={branches}
+          currentRole={currentRole}
+          initialTaxTab={taxTabMap[currentTab] || 'rules'}
+        />
+      );
     }
 
     // 13. BUDGETS & FUNDS
@@ -427,7 +506,14 @@ export default function App() {
 
     // 15. REPORTS
     if (currentTab === 'reports' || currentTab.startsWith('rep_')) {
-      return <ReportsView />;
+      const repTabMap: Record<string, 'trial_balance' | 'income_exp' | 'balance_sheet' | 'day_book' | 'outstanding'> = {
+        rep_trial_balance: 'trial_balance',
+        rep_income_exp: 'income_exp',
+        rep_balance_sheet: 'balance_sheet',
+        rep_day_book: 'day_book',
+        rep_outstanding: 'outstanding'
+      };
+      return <ReportsView initialTab={repTabMap[currentTab] || 'trial_balance'} />;
     }
 
     // 16. APPROVALS & AUDIT LOGS
@@ -448,6 +534,12 @@ export default function App() {
         selectedFy={selectedFy}
         vouchers={vouchers}
         invoices={invoices}
+        payments={payments}
+        attendanceRecords={attendanceRecords}
+        auditLogs={auditLogs}
+        branches={branches}
+        users={users}
+        roles={roles}
         onNavigate={(tab) => setCurrentTab(tab)}
         currentRole={currentRole}
         staffModules={activeStaffUser?.assigned_roles || ['Finance Head / Controller']}

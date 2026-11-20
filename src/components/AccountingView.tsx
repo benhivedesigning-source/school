@@ -66,17 +66,6 @@ export const AccountingView: React.FC<AccountingViewProps> = ({
 
   const sectionControls = (
     <div className="flex flex-wrap items-center gap-2.5 shrink-0">
-      <select
-        aria-label="Accounting Section"
-        value={activeTab}
-        onChange={(e) => setActiveTab(e.target.value as 'ledgers' | 'groups' | 'cost_centres' | 'vouchers')}
-        className="bg-[#FAF7F3] border border-burgundy-200 rounded-xl px-3.5 py-2 text-xs font-bold text-burgundy-900 focus:outline-none focus:border-[#8B3552] cursor-pointer"
-      >
-        <option value="vouchers">Day Book & Vouchers ({vouchers.length})</option>
-        <option value="ledgers">Chart of Ledgers ({ledgers.length})</option>
-        <option value="groups">Account Groups ({accountGroups.length})</option>
-        <option value="cost_centres">Cost Centres ({costCentres.length})</option>
-      </select>
       <button
         onClick={() => {
           if (activeTab === 'vouchers') setShowVoucherModal(true);

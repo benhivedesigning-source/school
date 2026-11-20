@@ -26,17 +26,6 @@ export const BankingView: React.FC<BankingViewProps> = ({
 
   const sectionControls = (
     <div className="flex flex-wrap items-center gap-2.5 shrink-0">
-      <select
-        aria-label="Banking Section"
-        value={activeTab}
-        onChange={(e) => setActiveTab(e.target.value as 'accounts' | 'book' | 'reconciliation' | 'gateways')}
-        className="bg-[#FAF7F3] border border-burgundy-200 rounded-xl px-3.5 py-2 text-xs font-bold text-burgundy-900 focus:outline-none focus:border-[#8B3552] cursor-pointer"
-      >
-        <option value="reconciliation">Bank Reconciliation Workbench</option>
-        <option value="book">Bank Book Ledger</option>
-        <option value="accounts">Bank Accounts ({bankAccounts.length})</option>
-        <option value="gateways">Payment Gateways & Settlements</option>
-      </select>
       <span className="px-3 py-1.5 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-xl text-xs font-bold shadow-2xs whitespace-nowrap">
         Status: Bank Book Synced
       </span>
